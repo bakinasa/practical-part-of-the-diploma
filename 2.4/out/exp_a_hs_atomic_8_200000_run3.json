@@ -1,0 +1,16 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\counter_hs.exe",
+    "atomic",
+    "8",
+    "200000",
+    "+RTS",
+    "-N8"
+  ],
+  "exit_code": 0,
+  "wall_ms": 11137.422,
+  "peak_rss_bytes": 43417600,
+  "peak_rss_mb": 41.406,
+  "stdout": "language: Haskell\nvariant: atomic\nworkers: 8\niterations_per_worker: 200000\nexpected: 1600000\nobserved: 1600000\nok: 1\ntime_ms: 11105.367400000001\n",
+  "stderr": ""
+}

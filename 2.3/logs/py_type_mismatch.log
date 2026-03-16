@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<project>", line 5, in <module>
+    print(add("42", 1))
+          ^^^^^^^^^^^^
+  File "<project>", line 2, in add
+    return a + b
+           ~~^~~
+TypeError: can only concatenate str (not "int") to str

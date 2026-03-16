@@ -1,0 +1,39 @@
+
+==================== Tidy Core ====================
+
+Result size of Tidy Core
+  = {terms: 59, types: 31, coercions: 0, joins: 0/3}
+
+$trModule1_r13d = "main"#
+
+$trModule2_r13e = TrNameS $trModule1_r13d
+
+$trModule3_r13f = "Main"#
+
+$trModule4_r13g = TrNameS $trModule3_r13f
+
+$trModule = Module $trModule2_r13e $trModule4_r13g
+
+relax
+  = \ old_aww du_awx w_awy ->
+      let { alt_awz = + $fNumDouble du_awx w_awy } in
+      case < $fOrdDouble alt_awz old_aww of {
+        False -> old_aww;
+        True -> alt_awz
+      }
+
+step = relax
+
+main
+  = print
+      $fShowDouble
+      (let { old_aww = D# 10.0## } in
+       let { alt_awz = + $fNumDouble (D# 3.0##) (D# 4.0##) } in
+       case < $fOrdDouble alt_awz old_aww of {
+         False -> old_aww;
+         True -> alt_awz
+       })
+
+main = runMainIO main
+
+

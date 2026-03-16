@@ -1,0 +1,16 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\sum_hs.exe",
+    "seq",
+    "1",
+    "5000000",
+    "+RTS",
+    "-N1"
+  ],
+  "exit_code": 0,
+  "wall_ms": 44.561,
+  "peak_rss_bytes": 9310208,
+  "peak_rss_mb": 8.879,
+  "stdout": "language: Haskell\nmode: seq\nworkers: 1\nn: 5000000\nchecksum: 9545773391577464255\ntime_ms: 6.000100000000001\n",
+  "stderr": ""
+}

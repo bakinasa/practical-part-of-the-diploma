@@ -1,0 +1,14 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\sum_rust.exe",
+    "seq",
+    "1",
+    "20000000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 63.826,
+  "peak_rss_bytes": 3817472,
+  "peak_rss_mb": 3.641,
+  "stdout": "language: Rust\nmode: seq\nworkers: 1\nn: 20000000\nchecksum: 17217913594410967199\ntime_ms: 23.498\n",
+  "stderr": ""
+}

@@ -1,0 +1,1 @@
+{closure@C:\Users\bakin\OneDrive\Рабочий стол\2.3\2.4\rust\rust_rejected.rs:11:36: 11:43}

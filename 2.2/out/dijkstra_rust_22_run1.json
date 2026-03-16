@@ -1,0 +1,13 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\out\\dijkstra_rust_22.exe",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\graph.txt"
+  ],
+  "exit_code": 0,
+  "wall_ms": 2047.795,
+  "peak_rss_bytes": 25423872,
+  "peak_rss_mb": 24.246,
+  "samples": 112,
+  "stdout": "parse_ms: 235.84\nalgo_avg_ms: 35.50\nchecksum: 1212568664.000005\nruns: 50\nparse_alloc_calls: 1099355\nparse_dealloc_calls: 1000004\nparse_realloc_calls: 63776\nparse_total_bytes: 54503285\nparse_current_bytes: 13201536\nparse_peak_bytes: 13209892\nalgo_alloc_calls: 100\nalgo_dealloc_calls: 100\nalgo_realloc_calls: 750\nalgo_total_bytes: 144857600\nalgo_current_bytes: 0\nalgo_peak_bytes: 2897152\n",
+  "stderr": ""
+}

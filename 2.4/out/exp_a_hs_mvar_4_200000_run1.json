@@ -1,0 +1,16 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\counter_hs.exe",
+    "mvar",
+    "4",
+    "200000",
+    "+RTS",
+    "-N4"
+  ],
+  "exit_code": 0,
+  "wall_ms": 4887.775,
+  "peak_rss_bytes": 26058752,
+  "peak_rss_mb": 24.852,
+  "stdout": "language: Haskell\nvariant: mvar\nworkers: 4\niterations_per_worker: 200000\nexpected: 800000\nobserved: 800000\nok: 1\ntime_ms: 4846.2865\n",
+  "stderr": ""
+}

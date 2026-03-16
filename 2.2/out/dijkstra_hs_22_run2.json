@@ -1,0 +1,15 @@
+﻿{
+  "command": [
+    "out\\dijkstra_hs_22.exe",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\graph.txt",
+    "+RTS",
+    "-s"
+  ],
+  "exit_code": 0,
+  "wall_ms": 6939.703,
+  "peak_rss_bytes": 419586048,
+  "peak_rss_mb": 400.148,
+  "samples": 337,
+  "stdout": "parse_ms: 5637.508000000001\nalgo_avg_ms: 24.728564000000002\nchecksum: 1.2125686640000055e9\nruns: 50\n",
+  "stderr": "   9,904,888,224 bytes allocated in the heap\n   1,038,900,248 bytes copied during GC\n     199,084,528 bytes maximum residency (9 sample(s))\n         448,016 bytes maximum slop\n             392 MiB total memory in use (0 MiB lost due to fragmentation)\n\n                                     Tot time (elapsed)  Avg pause  Max pause\n  Gen  0      2368 colls,     0 par    0.953s   2.125s     0.0009s    0.0091s\n  Gen  1         9 colls,     0 par    0.172s   0.682s     0.0758s    0.3397s\n\n  INIT    time    0.000s  (  0.000s elapsed)\n  MUT     time    1.906s  (  4.099s elapsed)\n  GC      time    1.125s  (  2.807s elapsed)\n  EXIT    time    0.000s  (  0.000s elapsed)\n  Total   time    3.031s  (  6.907s elapsed)\n\n  %GC     time       0.0%  (0.0% elapsed)\n\n  Alloc rate    5,196,006,937 bytes per MUT second\n\n  Productivity  62.9% of total user, 59.4% of total elapsed\n\n"
+}

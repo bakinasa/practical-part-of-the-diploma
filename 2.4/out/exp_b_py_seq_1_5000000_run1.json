@@ -1,0 +1,15 @@
+﻿{
+  "command": [
+    "python",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\python\\sum_py.py",
+    "seq",
+    "1",
+    "5000000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 3390.342,
+  "peak_rss_bytes": 13135872,
+  "peak_rss_mb": 12.527,
+  "stdout": "language: Python\nmode: seq\nworkers: 1\nn: 5000000\nchecksum: 9545773391577464255\ntime_ms: 3128.740\n",
+  "stderr": ""
+}

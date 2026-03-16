@@ -1,0 +1,111 @@
+======================================================================
+Section 2.4 — Concurrency and parallelism: report
+======================================================================
+
+Rust rejected example (must not compile: Rc<RefCell<_>> not Send)
+----------------------------------------------------------------------
+rustc.exe : error[E0277]: `Rc<RefCell<u64>>` cannot be sent between threads safely
+C:\Users\bakin\OneDrive\Рабочий стол\2.3\2.4\run_2_4.ps1:32 знак:1
++ & rustc (Join-Path $root "rust\rust_rejected.rs") -o (Join-Path $out  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error[E0277]: `... threads safely:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  --> C:\Users\bakin\OneDrive\╨а╨░╨▒╨╛╤З╨╕╨╣ ╤Б╤В╨╛╨╗\2.3\2.4\rust\rust_rejected.rs:11:36
+   |
+11 |           handles.push(thread::spawn(move || {
+   |                        ------------- ^------
+   |                        |             |
+   |  ______________________|_____________within this `{closure@rust_rejected.rs:11:36}`
+   | |                      |
+   | |                      required by a bound introduced by this call
+12 | |             for _ in 0..100_000 {
+13 | |                 *c.borrow_mut() += 1;
+14 | |             }
+15 | |         }));
+   | |_________^ `Rc<RefCell<u64>>` cannot be sent between threads safely
+   |
+   = help: within `{closure@rust_rejected.rs:11:36}`, the trait `Send` is not implemented for `Rc<RefCell<u64>>`
+note: required because it's used within this closure
+  --> C:\Users\bakin\OneDrive\╨а╨░╨▒╨╛╤З╨╕╨╣ ╤Б╤В╨╛╨╗\2.3\2.4\rust\rust_rejected.rs:11:36
+   |
+11 |         handles.push(thread::spawn(move || {
+   |                                    ^^^^^^^
+note: required by a bound in `spawn`
+  --> /rus
+
+Experiment A: Shared counter
+======================================================================
+Table: language, variant, workers, iters, expected, observed, ok_rate, avg_time_ms, avg_peak_rss_mb
+----------------------------------------------------------------------
+  c  atomic  2  200000  expected=400000  observed=400000  ok=5/5  avg_time_ms=3.74  peak_rss_mb=2.13
+  c  atomic  4  200000  expected=800000  observed=800000  ok=5/5  avg_time_ms=6.80  peak_rss_mb=2.15
+  c  atomic  8  200000  expected=1600000  observed=1600000  ok=5/5  avg_time_ms=14.26  peak_rss_mb=2.14
+  c  mutex  2  200000  expected=400000  observed=400000  ok=5/5  avg_time_ms=8.92  peak_rss_mb=2.43
+  c  mutex  4  200000  expected=800000  observed=800000  ok=5/5  avg_time_ms=22.72  peak_rss_mb=3.30
+  c  mutex  8  200000  expected=1600000  observed=1600000  ok=5/5  avg_time_ms=69.42  peak_rss_mb=3.66
+  c  race  2  200000  expected=400000  observed=261964  ok=0/5  avg_time_ms=1.49  peak_rss_mb=2.14
+  c  race  4  200000  expected=800000  observed=414617  ok=0/5  avg_time_ms=2.83  peak_rss_mb=2.14
+  c  race  8  200000  expected=1600000  observed=839305  ok=0/5  avg_time_ms=5.33  peak_rss_mb=2.15
+  hs  atomic  2  200000  expected=400000  observed=400000  ok=5/5  avg_time_ms=45.69  peak_rss_mb=16.65
+  hs  atomic  4  200000  expected=800000  observed=800000  ok=5/5  avg_time_ms=221.46  peak_rss_mb=24.72
+  hs  atomic  8  200000  expected=1600000  observed=1600000  ok=5/5  avg_time_ms=10200.50  peak_rss_mb=41.42
+  hs  mvar  2  200000  expected=400000  observed=400000  ok=5/5  avg_time_ms=325.59  peak_rss_mb=16.07
+  hs  mvar  4  200000  expected=800000  observed=800000  ok=5/5  avg_time_ms=4998.65  peak_rss_mb=24.88
+  hs  mvar  8  200000  expected=1600000  observed=1600000  ok=5/5  avg_time_ms=10553.21  peak_rss_mb=41.31
+  hs  race  2  200000  expected=400000  observed=220283  ok=0/5  avg_time_ms=3.13  peak_rss_mb=4.72
+  hs  race  4  200000  expected=800000  observed=217973  ok=0/5  avg_time_ms=5.71  peak_rss_mb=13.67
+  hs  race  8  200000  expected=1600000  observed=412740  ok=0/5  avg_time_ms=11.26  peak_rss_mb=30.01
+  py  lock  2  200000  expected=400000  observed=400000  ok=5/5  avg_time_ms=2884.00  peak_rss_mb=48.98
+  py  lock  4  200000  expected=800000  observed=800000  ok=5/5  avg_time_ms=5349.89  peak_rss_mb=81.66
+  py  lock  8  200000  expected=1600000  observed=1600000  ok=5/5  avg_time_ms=11158.71  peak_rss_mb=147.42
+  py  race  2  200000  expected=400000  observed=210724  ok=0/5  avg_time_ms=161.08  peak_rss_mb=48.63
+  py  race  4  200000  expected=800000  observed=278952  ok=0/5  avg_time_ms=193.82  peak_rss_mb=81.36
+  py  race  8  200000  expected=1600000  observed=313734  ok=0/5  avg_time_ms=269.23  peak_rss_mb=146.42
+  rust  atomic  2  200000  expected=400000  observed=400000  ok=5/5  avg_time_ms=5.17  peak_rss_mb=2.14
+  rust  atomic  4  200000  expected=800000  observed=800000  ok=5/5  avg_time_ms=7.05  peak_rss_mb=2.13
+  rust  atomic  8  200000  expected=1600000  observed=1600000  ok=5/5  avg_time_ms=15.42  peak_rss_mb=3.11
+  rust  mutex  2  200000  expected=400000  observed=400000  ok=5/5  avg_time_ms=18.50  peak_rss_mb=2.75
+  rust  mutex  4  200000  expected=800000  observed=800000  ok=5/5  avg_time_ms=52.68  peak_rss_mb=3.71
+  rust  mutex  8  200000  expected=1600000  observed=1600000  ok=5/5  avg_time_ms=127.42  peak_rss_mb=3.79
+
+Experiment B: Parallel reduction (speedup, efficiency)
+======================================================================
+Table: language, mode, workers, checksum, avg_time_ms, speedup (T1/Tp), efficiency, peak_rss_mb
+----------------------------------------------------------------------
+  c  seq  1  checksum=17217913594410967199  avg_time_ms=18.58  speedup=0.241  efficiency=0.241  peak_rss_mb=3.18
+  c  seq  1  checksum=9545773391577464255  avg_time_ms=4.48  speedup=1.000  efficiency=1.000  peak_rss_mb=2.14
+  c  threads  2  checksum=17217913594410967199  avg_time_ms=14.35  speedup=0.312  efficiency=0.156  peak_rss_mb=2.49
+  c  threads  2  checksum=9545773391577464255  avg_time_ms=2.91  speedup=1.538  efficiency=0.769  peak_rss_mb=2.13
+  c  threads  4  checksum=17217913594410967199  avg_time_ms=14.53  speedup=0.309  efficiency=0.077  peak_rss_mb=2.14
+  c  threads  8  checksum=17217913594410967199  avg_time_ms=6.31  speedup=0.711  efficiency=0.089  peak_rss_mb=2.15
+  hs  par  2  checksum=17217913594410967199  avg_time_ms=17.08  speedup=0.369  efficiency=0.184  peak_rss_mb=7.51
+  hs  par  2  checksum=9545773391577464255  avg_time_ms=3.92  speedup=1.607  efficiency=0.803  peak_rss_mb=5.54
+  hs  par  4  checksum=17217913594410967199  avg_time_ms=11.98  speedup=0.526  efficiency=0.131  peak_rss_mb=9.02
+  hs  par  8  checksum=17217913594410967199  avg_time_ms=15.28  speedup=0.412  efficiency=0.051  peak_rss_mb=8.54
+  hs  seq  1  checksum=17217913594410967199  avg_time_ms=29.67  speedup=0.212  efficiency=0.212  peak_rss_mb=8.12
+  hs  seq  1  checksum=9545773391577464255  avg_time_ms=6.30  speedup=1.000  efficiency=1.000  peak_rss_mb=8.42
+  py  processes  2  checksum=17217913594410967199  avg_time_ms=6307.56  speedup=0.466  efficiency=0.233  peak_rss_mb=46.80
+  py  processes  2  checksum=9545773391577464255  avg_time_ms=1634.97  speedup=1.797  efficiency=0.898  peak_rss_mb=46.85
+  py  processes  4  checksum=17217913594410967199  avg_time_ms=3614.38  speedup=0.813  efficiency=0.203  peak_rss_mb=78.36
+  py  processes  8  checksum=17217913594410967199  avg_time_ms=2220.20  speedup=1.323  efficiency=0.165  peak_rss_mb=141.08
+  py  seq  1  checksum=17217913594410967199  avg_time_ms=11154.17  speedup=0.263  efficiency=0.263  peak_rss_mb=12.49
+  py  seq  1  checksum=9545773391577464255  avg_time_ms=2937.45  speedup=1.000  efficiency=1.000  peak_rss_mb=12.48
+  py  threads  2  checksum=17217913594410967199  avg_time_ms=10711.38  speedup=0.274  efficiency=0.137  peak_rss_mb=12.82
+  py  threads  2  checksum=9545773391577464255  avg_time_ms=2847.05  speedup=1.032  efficiency=0.516  peak_rss_mb=12.73
+  py  threads  4  checksum=17217913594410967199  avg_time_ms=11044.03  speedup=0.266  efficiency=0.066  peak_rss_mb=12.73
+  py  threads  8  checksum=17217913594410967199  avg_time_ms=10988.19  speedup=0.267  efficiency=0.033  peak_rss_mb=12.95
+  rust  seq  1  checksum=17217913594410967199  avg_time_ms=24.01  speedup=0.316  efficiency=0.316  peak_rss_mb=3.64
+  rust  seq  1  checksum=9545773391577464255  avg_time_ms=7.58  speedup=1.000  efficiency=1.000  peak_rss_mb=2.12
+  rust  threads  2  checksum=17217913594410967199  avg_time_ms=17.25  speedup=0.439  efficiency=0.220  peak_rss_mb=2.53
+  rust  threads  2  checksum=9545773391577464255  avg_time_ms=4.80  speedup=1.577  efficiency=0.789  peak_rss_mb=2.12
+  rust  threads  4  checksum=17217913594410967199  avg_time_ms=13.94  speedup=0.544  efficiency=0.136  peak_rss_mb=2.52
+  rust  threads  8  checksum=17217913594410967199  avg_time_ms=14.34  speedup=0.529  efficiency=0.066  peak_rss_mb=2.52
+
+Experiment C: Async (timer swarm)
+======================================================================
+Table: mode, tasks, delay_ms, checksum, avg_time_ms, avg_peak_rss_mb
+----------------------------------------------------------------------
+  async  tasks=1000  delay_ms=10  checksum=1000  avg_time_ms=28.75  peak_rss_mb=21.97
+  seq  tasks=1000  delay_ms=10  checksum=1000  avg_time_ms=10454.02  peak_rss_mb=20.02
+  threads  tasks=1000  delay_ms=10  checksum=1000  avg_time_ms=674.47  peak_rss_mb=22.54

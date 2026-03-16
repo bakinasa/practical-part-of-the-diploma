@@ -1,0 +1,15 @@
+﻿{
+  "command": [
+    "python",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\python\\sum_py.py",
+    "threads",
+    "2",
+    "5000000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 2763.797,
+  "peak_rss_bytes": 13291520,
+  "peak_rss_mb": 12.676,
+  "stdout": "language: Python\nmode: threads\nworkers: 2\nn: 5000000\nchecksum: 9545773391577464255\ntime_ms: 2670.735\n",
+  "stderr": ""
+}

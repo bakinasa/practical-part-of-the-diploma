@@ -1,0 +1,8 @@
+
+NonExhaustive.hs:4:1: error: [GHC-62161] [-Wincomplete-patterns, Werror=incomplete-patterns]
+    Pattern match(es) are non-exhaustive
+    In an equation for `toCode':
+        Patterns of type `Color' not matched: Blue
+  |
+4 | toCode Red = 1
+  | ^^^^^^^^^^^^^^^...

@@ -1,0 +1,80 @@
+﻿  0           0 RESUME                   0
+
+  1           2 LOAD_CONST               0 ('old')
+              4 LOAD_NAME                0 (float)
+              6 LOAD_CONST               1 ('du')
+              8 LOAD_NAME                0 (float)
+             10 LOAD_CONST               2 ('w')
+             12 LOAD_NAME                0 (float)
+             14 LOAD_CONST               3 ('return')
+             16 LOAD_NAME                0 (float)
+             18 BUILD_TUPLE              8
+             20 LOAD_CONST               4 (<code object relax at 0x00000208EA046410, file "C:\Users\bakin\OneDrive\╨рсюўшщ ёЄюы\2.3\2.1\micro\python\relax.py", line 1>)
+             22 MAKE_FUNCTION            4 (annotations)
+             24 STORE_NAME               1 (relax)
+
+  6          26 LOAD_CONST               0 ('old')
+             28 LOAD_NAME                0 (float)
+             30 LOAD_CONST               1 ('du')
+             32 LOAD_NAME                0 (float)
+             34 LOAD_CONST               2 ('w')
+             36 LOAD_NAME                0 (float)
+             38 LOAD_CONST               3 ('return')
+             40 LOAD_NAME                0 (float)
+             42 BUILD_TUPLE              8
+             44 LOAD_CONST               5 (<code object step at 0x00000208EA11B130, file "C:\Users\bakin\OneDrive\╨рсюўшщ ёЄюы\2.3\2.1\micro\python\relax.py", line 6>)
+             46 MAKE_FUNCTION            4 (annotations)
+             48 STORE_NAME               2 (step)
+
+ 10          50 LOAD_NAME                3 (__name__)
+             52 LOAD_CONST               6 ('__main__')
+             54 COMPARE_OP               2 (==)
+             60 POP_JUMP_FORWARD_IF_FALSE    26 (to 114)
+
+ 11          62 PUSH_NULL
+             64 LOAD_NAME                4 (print)
+             66 PUSH_NULL
+             68 LOAD_NAME                2 (step)
+             70 LOAD_CONST               7 (10.0)
+             72 LOAD_CONST               8 (3.0)
+             74 LOAD_CONST               9 (4.0)
+             76 PRECALL                  3
+             80 CALL                     3
+             90 LOAD_CONST              10 ('.2f')
+             92 FORMAT_VALUE             4 (with format)
+             94 PRECALL                  1
+             98 CALL                     1
+            108 POP_TOP
+            110 LOAD_CONST              11 (None)
+            112 RETURN_VALUE
+
+ 10     >>  114 LOAD_CONST              11 (None)
+            116 RETURN_VALUE
+
+Disassembly of <code object relax at 0x00000208EA046410, file "C:\Users\bakin\OneDrive\╨рсюўшщ ёЄюы\2.3\2.1\micro\python\relax.py", line 1>:
+  1           0 RESUME                   0
+
+  2           2 LOAD_FAST                1 (du)
+              4 LOAD_FAST                2 (w)
+              6 BINARY_OP                0 (+)
+             10 STORE_FAST               3 (alt)
+
+  3          12 LOAD_FAST                3 (alt)
+             14 LOAD_FAST                0 (old)
+             16 COMPARE_OP               0 (<)
+             22 POP_JUMP_FORWARD_IF_FALSE     2 (to 28)
+             24 LOAD_FAST                3 (alt)
+             26 JUMP_FORWARD             1 (to 30)
+        >>   28 LOAD_FAST                0 (old)
+        >>   30 RETURN_VALUE
+
+Disassembly of <code object step at 0x00000208EA11B130, file "C:\Users\bakin\OneDrive\╨рсюўшщ ёЄюы\2.3\2.1\micro\python\relax.py", line 6>:
+  6           0 RESUME                   0
+
+  7           2 LOAD_GLOBAL              1 (NULL + relax)
+             14 LOAD_FAST                0 (old)
+             16 LOAD_FAST                1 (du)
+             18 LOAD_FAST                2 (w)
+             20 PRECALL                  3
+             24 CALL                     3
+             34 RETURN_VALUE

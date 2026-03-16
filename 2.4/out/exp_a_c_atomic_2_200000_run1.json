@@ -1,0 +1,14 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\counter_c.exe",
+    "atomic",
+    "2",
+    "200000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 32.988,
+  "peak_rss_bytes": 2224128,
+  "peak_rss_mb": 2.121,
+  "stdout": "language: C\nvariant: atomic\nworkers: 2\niterations_per_worker: 200000\nexpected: 400000\nobserved: 400000\nok: 1\ntime_ms: 5.419\n",
+  "stderr": ""
+}

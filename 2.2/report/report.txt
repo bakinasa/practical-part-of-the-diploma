@@ -1,0 +1,567 @@
+============================================================
+Section 2.2 — Report (all metrics and outputs)
+============================================================
+
+Summary tables (averages over runs per variant)
+============================================================
+
+Dijkstra
+------------------------------------------------------------
+Language  wall_ms_avg  peak_rss_mb_avg  parse_ms  algo_avg_ms  checksum  exit  
+c  3969.9  14.50  1671.32  44.04  1212568664.000005  0
+hs  6907.2  400.14  5627.8341  24.38027  1.2125686640000055e9  0
+python  55951.2  290.56  4738.25  1039.60  1212568664.000005  0
+rust  2042.0  23.94  235.84  35.50  1212568664.000005  0
+
+Relax_loop
+------------------------------------------------------------
+Language  wall_ms_avg  peak_rss_mb_avg  time_ms  checksum  exit  
+c  219.0  3.52  193.48  150000000.000000  0
+hs  229.8  12.74  229.8 (wall_ms; internal timer was 0)  3.0e7  0
+python  13261.7  9.68  13189.04  150000000.000000  0
+rust  197.9  3.70  177.30  150000000.000000  0
+
+============================================================
+Detailed per-run output
+============================================================
+------------------------------------------------------------
+Variant: dijkstra_c_22
+------------------------------------------------------------
+  Run: dijkstra_c_22_run1.json
+    algo_alloc_calls: 0
+    algo_avg_ms: 44.04
+    algo_free_calls: 0
+    algo_peak_bytes: 0
+    algo_total_bytes: 0
+    checksum: 1212568664.000005
+    parse_alloc_calls: 2
+    parse_free_calls: 2
+    parse_ms: 1671.32
+    parse_peak_bytes: 800000
+    parse_total_bytes: 800000
+    peak_rss_mb: 14.5
+    runs: 50
+    wall_ms: 3884.971
+    [stdout excerpt]
+      parse_ms: 1671.32
+      algo_avg_ms: 44.04
+      checksum: 1212568664.000005
+      runs: 50
+      parse_alloc_calls: 2
+    exit_code: 0
+
+  Run: dijkstra_c_22_run2.json
+    algo_alloc_calls: 0
+    algo_avg_ms: 41.52
+    algo_free_calls: 0
+    algo_peak_bytes: 0
+    algo_total_bytes: 0
+    checksum: 1212568664.000005
+    parse_alloc_calls: 2
+    parse_free_calls: 2
+    parse_ms: 1708.26
+    parse_peak_bytes: 800000
+    parse_total_bytes: 800000
+    peak_rss_mb: 14.496
+    runs: 50
+    wall_ms: 3807.886
+    [stdout excerpt]
+      parse_ms: 1708.26
+      algo_avg_ms: 41.52
+      checksum: 1212568664.000005
+      runs: 50
+      parse_alloc_calls: 2
+    exit_code: 0
+
+  Run: dijkstra_c_22_run3.json
+    algo_alloc_calls: 0
+    algo_avg_ms: 46.07
+    algo_free_calls: 0
+    algo_peak_bytes: 0
+    algo_total_bytes: 0
+    checksum: 1212568664.000005
+    parse_alloc_calls: 2
+    parse_free_calls: 2
+    parse_ms: 1889.62
+    parse_peak_bytes: 800000
+    parse_total_bytes: 800000
+    peak_rss_mb: 14.496
+    runs: 50
+    wall_ms: 4216.807
+    [stdout excerpt]
+      parse_ms: 1889.62
+      algo_avg_ms: 46.07
+      checksum: 1212568664.000005
+      runs: 50
+      parse_alloc_calls: 2
+    exit_code: 0
+
+------------------------------------------------------------
+Variant: dijkstra_hs_22
+------------------------------------------------------------
+  Run: dijkstra_hs_22_run1.json
+    algo_avg_ms: 24.38027
+    checksum: 1.2125686640000055e9
+    parse_ms: 5627.8341
+    peak_rss_mb: 400.129
+    runs: 50
+    wall_ms: 6913.805
+    [RTS from stderr]
+      gc_time_s: 0.719
+      heap_bytes_allocated: 9904880592
+      maximum_residency_bytes: 199084528
+      mut_time_s: 1.281
+      productivity_pct: 64.1
+      total_memory_mib: 392
+    [stdout excerpt]
+      parse_ms: 5627.8341
+      algo_avg_ms: 24.38027
+      checksum: 1.2125686640000055e9
+      runs: 50
+    [stderr RTS excerpt]
+      9,904,880,592 bytes allocated in the heap
+         1,038,900,248 bytes copied during GC
+           199,084,528 bytes maximum residency (9 sample(s))
+               448,016 bytes maximum slop
+                   392 MiB total memory in use (0 MiB lost due to fragmentation)
+      
+                                           Tot time (elapsed)  Avg pause  Max pause
+        Gen  0      2368 colls,     0 par    0.500s   2.131s     0.0009s    0.0047s
+        Gen  1         9 colls,     0 par    0.219s   0.713s     0.0792s    0.3638s
+      
+        INIT    time    0.000s  (  0.000s elapsed)
+        MUT     time    1.281s  (  4.029s elapsed)
+    exit_code: 0
+
+  Run: dijkstra_hs_22_run2.json
+    algo_avg_ms: 24.728564000000002
+    checksum: 1.2125686640000055e9
+    parse_ms: 5637.508000000001
+    peak_rss_mb: 400.148
+    runs: 50
+    wall_ms: 6939.703
+    [RTS from stderr]
+      gc_time_s: 1.125
+      heap_bytes_allocated: 9904888224
+      maximum_residency_bytes: 199084528
+      mut_time_s: 1.906
+      productivity_pct: 62.9
+      total_memory_mib: 392
+    [stdout excerpt]
+      parse_ms: 5637.508000000001
+      algo_avg_ms: 24.728564000000002
+      checksum: 1.2125686640000055e9
+      runs: 50
+    [stderr RTS excerpt]
+      9,904,888,224 bytes allocated in the heap
+         1,038,900,248 bytes copied during GC
+           199,084,528 bytes maximum residency (9 sample(s))
+               448,016 bytes maximum slop
+                   392 MiB total memory in use (0 MiB lost due to fragmentation)
+      
+                                           Tot time (elapsed)  Avg pause  Max pause
+        Gen  0      2368 colls,     0 par    0.953s   2.125s     0.0009s    0.0091s
+        Gen  1         9 colls,     0 par    0.172s   0.682s     0.0758s    0.3397s
+      
+        INIT    time    0.000s  (  0.000s elapsed)
+        MUT     time    1.906s  (  4.099s elapsed)
+    exit_code: 0
+
+  Run: dijkstra_hs_22_run3.json
+    algo_avg_ms: 24.235726
+    checksum: 1.2125686640000055e9
+    parse_ms: 5601.5039
+    peak_rss_mb: 400.133
+    runs: 50
+    wall_ms: 6868.213
+    [RTS from stderr]
+      gc_time_s: 1.188
+      heap_bytes_allocated: 9904881112
+      maximum_residency_bytes: 199084528
+      mut_time_s: 1.938
+      productivity_pct: 62.0
+      total_memory_mib: 392
+    [stdout excerpt]
+      parse_ms: 5601.5039
+      algo_avg_ms: 24.235726
+      checksum: 1.2125686640000055e9
+      runs: 50
+    [stderr RTS excerpt]
+      9,904,881,112 bytes allocated in the heap
+         1,038,900,248 bytes copied during GC
+           199,084,528 bytes maximum residency (9 sample(s))
+               448,016 bytes maximum slop
+                   392 MiB total memory in use (0 MiB lost due to fragmentation)
+      
+                                           Tot time (elapsed)  Avg pause  Max pause
+        Gen  0      2368 colls,     0 par    0.812s   2.074s     0.0009s    0.0087s
+        Gen  1         9 colls,     0 par    0.375s   0.667s     0.0742s    0.3406s
+      
+        INIT    time    0.000s  (  0.000s elapsed)
+        MUT     time    1.938s  (  4.099s elapsed)
+    exit_code: 0
+
+------------------------------------------------------------
+Variant: dijkstra_python_22
+------------------------------------------------------------
+  Run: dijkstra_python_22_run1.json
+    algo_avg_ms: 1039.60
+    algo_peak_bytes: 73985502
+    checksum: 1212568664.000005
+    parse_ms: 4738.25
+    parse_peak_bytes: 65789250
+    peak_rss_mb: 290.406
+    runs: 50
+    wall_ms: 57765.782
+    [stdout excerpt]
+      parse_ms: 4738.25
+      algo_avg_ms: 1039.60
+      checksum: 1212568664.000005
+      runs: 50
+      parse_peak_bytes: 65789250
+    exit_code: 0
+
+  Run: dijkstra_python_22_run2.json
+    algo_avg_ms: 1015.25
+    algo_peak_bytes: 73985502
+    checksum: 1212568664.000005
+    parse_ms: 4490.59
+    parse_peak_bytes: 65789250
+    peak_rss_mb: 290.797
+    runs: 50
+    wall_ms: 56255.065
+    [stdout excerpt]
+      parse_ms: 4490.59
+      algo_avg_ms: 1015.25
+      checksum: 1212568664.000005
+      runs: 50
+      parse_peak_bytes: 65789250
+    exit_code: 0
+
+  Run: dijkstra_python_22_run3.json
+    algo_avg_ms: 970.30
+    algo_peak_bytes: 73985502
+    checksum: 1212568664.000005
+    parse_ms: 4347.02
+    parse_peak_bytes: 65789250
+    peak_rss_mb: 290.477
+    runs: 50
+    wall_ms: 53832.825
+    [stdout excerpt]
+      parse_ms: 4347.02
+      algo_avg_ms: 970.30
+      checksum: 1212568664.000005
+      runs: 50
+      parse_peak_bytes: 65789250
+    exit_code: 0
+
+------------------------------------------------------------
+Variant: dijkstra_rust_22
+------------------------------------------------------------
+  Run: dijkstra_rust_22_run1.json
+    algo_alloc_calls: 100
+    algo_avg_ms: 35.50
+    algo_current_bytes: 0
+    algo_dealloc_calls: 100
+    algo_peak_bytes: 2897152
+    algo_realloc_calls: 750
+    algo_total_bytes: 144857600
+    checksum: 1212568664.000005
+    parse_alloc_calls: 1099355
+    parse_current_bytes: 13201536
+    parse_dealloc_calls: 1000004
+    parse_ms: 235.84
+    parse_peak_bytes: 13209892
+    parse_realloc_calls: 63776
+    parse_total_bytes: 54503285
+    peak_rss_mb: 24.246
+    runs: 50
+    wall_ms: 2047.795
+    [stdout excerpt]
+      parse_ms: 235.84
+      algo_avg_ms: 35.50
+      checksum: 1212568664.000005
+      runs: 50
+      parse_alloc_calls: 1099355
+    exit_code: 0
+
+  Run: dijkstra_rust_22_run2.json
+    algo_alloc_calls: 100
+    algo_avg_ms: 35.75
+    algo_current_bytes: 0
+    algo_dealloc_calls: 100
+    algo_peak_bytes: 2897152
+    algo_realloc_calls: 750
+    algo_total_bytes: 144857600
+    checksum: 1212568664.000005
+    parse_alloc_calls: 1099355
+    parse_current_bytes: 13201536
+    parse_dealloc_calls: 1000004
+    parse_ms: 228.29
+    parse_peak_bytes: 13209892
+    parse_realloc_calls: 63776
+    parse_total_bytes: 54503285
+    peak_rss_mb: 23.785
+    runs: 50
+    wall_ms: 2058.357
+    [stdout excerpt]
+      parse_ms: 228.29
+      algo_avg_ms: 35.75
+      checksum: 1212568664.000005
+      runs: 50
+      parse_alloc_calls: 1099355
+    exit_code: 0
+
+  Run: dijkstra_rust_22_run3.json
+    algo_alloc_calls: 100
+    algo_avg_ms: 35.63
+    algo_current_bytes: 0
+    algo_dealloc_calls: 100
+    algo_peak_bytes: 2897152
+    algo_realloc_calls: 750
+    algo_total_bytes: 144857600
+    checksum: 1212568664.000005
+    parse_alloc_calls: 1099355
+    parse_current_bytes: 13201536
+    parse_dealloc_calls: 1000004
+    parse_ms: 214.87
+    parse_peak_bytes: 13209892
+    parse_realloc_calls: 63776
+    parse_total_bytes: 54503285
+    peak_rss_mb: 23.785
+    runs: 50
+    wall_ms: 2019.915
+    [stdout excerpt]
+      parse_ms: 214.87
+      algo_avg_ms: 35.63
+      checksum: 1212568664.000005
+      runs: 50
+      parse_alloc_calls: 1099355
+    exit_code: 0
+
+------------------------------------------------------------
+Variant: relax_loop_c_22
+------------------------------------------------------------
+  Run: relax_loop_c_22_run1.json
+    checksum: 150000000.000000
+    iters: 100000000
+    peak_rss_mb: 3.516
+    time_ms: 193.48
+    wall_ms: 225.77
+    [stdout excerpt]
+      time_ms: 193.48
+      checksum: 150000000.000000
+      iters: 100000000
+    exit_code: 0
+
+  Run: relax_loop_c_22_run2.json
+    checksum: 150000000.000000
+    iters: 100000000
+    peak_rss_mb: 3.516
+    time_ms: 195.78
+    wall_ms: 207.874
+    [stdout excerpt]
+      time_ms: 195.78
+      checksum: 150000000.000000
+      iters: 100000000
+    exit_code: 0
+
+  Run: relax_loop_c_22_run3.json
+    checksum: 150000000.000000
+    iters: 100000000
+    peak_rss_mb: 3.516
+    time_ms: 193.98
+    wall_ms: 223.275
+    [stdout excerpt]
+      time_ms: 193.98
+      checksum: 150000000.000000
+      iters: 100000000
+    exit_code: 0
+
+------------------------------------------------------------
+Variant: relax_loop_hs_22
+------------------------------------------------------------
+  Run: relax_loop_hs_22_run1.json
+    checksum: 3.0e7
+    iters: 20000000
+    peak_rss_mb: 13.066
+    time_ms: 0.0
+    wall_ms: 259.891
+    [RTS from stderr]
+      gc_time_s: 0.000
+      heap_bytes_allocated: 1600100184
+      maximum_residency_bytes: 42856
+      mut_time_s: 0.141
+      productivity_pct: 100.0
+      total_memory_mib: 6
+    [stdout excerpt]
+      time_ms: 0.0
+      checksum: 3.0e7
+      iters: 20000000
+    [stderr RTS excerpt]
+      1,600,100,184 bytes allocated in the heap
+                 8,232 bytes copied during GC
+                42,856 bytes maximum residency (2 sample(s))
+                26,776 bytes maximum slop
+                     6 MiB total memory in use (0 MiB lost due to fragmentation)
+      
+                                           Tot time (elapsed)  Avg pause  Max pause
+        Gen  0       381 colls,     0 par    0.000s   0.004s     0.0000s    0.0001s
+        Gen  1         2 colls,     0 par    0.000s   0.001s     0.0006s    0.0009s
+      
+        INIT    time    0.000s  (  0.000s elapsed)
+        MUT     time    0.141s  (  0.216s elapsed)
+    exit_code: 0
+
+  Run: relax_loop_hs_22_run2.json
+    checksum: 3.0e7
+    iters: 20000000
+    peak_rss_mb: 12.68
+    time_ms: 0.0
+    wall_ms: 204.41
+    [RTS from stderr]
+      gc_time_s: 0.000
+      heap_bytes_allocated: 1600100184
+      maximum_residency_bytes: 42856
+      mut_time_s: 0.078
+      productivity_pct: 100.0
+      total_memory_mib: 6
+    [stdout excerpt]
+      time_ms: 0.0
+      checksum: 3.0e7
+      iters: 20000000
+    [stderr RTS excerpt]
+      1,600,100,184 bytes allocated in the heap
+                 8,232 bytes copied during GC
+                42,856 bytes maximum residency (2 sample(s))
+                26,776 bytes maximum slop
+                     6 MiB total memory in use (0 MiB lost due to fragmentation)
+      
+                                           Tot time (elapsed)  Avg pause  Max pause
+        Gen  0       381 colls,     0 par    0.000s   0.002s     0.0000s    0.0000s
+        Gen  1         2 colls,     0 par    0.000s   0.001s     0.0003s    0.0005s
+      
+        INIT    time    0.000s  (  0.000s elapsed)
+        MUT     time    0.078s  (  0.165s elapsed)
+    exit_code: 0
+
+  Run: relax_loop_hs_22_run3.json
+    checksum: 3.0e7
+    iters: 20000000
+    peak_rss_mb: 12.484
+    time_ms: 0.0
+    wall_ms: 224.951
+    [RTS from stderr]
+      gc_time_s: 0.000
+      heap_bytes_allocated: 1600100184
+      maximum_residency_bytes: 42856
+      mut_time_s: 0.125
+      productivity_pct: 100.0
+      total_memory_mib: 6
+    [stdout excerpt]
+      time_ms: 0.0
+      checksum: 3.0e7
+      iters: 20000000
+    [stderr RTS excerpt]
+      1,600,100,184 bytes allocated in the heap
+                 8,232 bytes copied during GC
+                42,856 bytes maximum residency (2 sample(s))
+                26,776 bytes maximum slop
+                     6 MiB total memory in use (0 MiB lost due to fragmentation)
+      
+                                           Tot time (elapsed)  Avg pause  Max pause
+        Gen  0       381 colls,     0 par    0.000s   0.003s     0.0000s    0.0000s
+        Gen  1         2 colls,     0 par    0.000s   0.001s     0.0004s    0.0006s
+      
+        INIT    time    0.000s  (  0.000s elapsed)
+        MUT     time    0.125s  (  0.188s elapsed)
+    exit_code: 0
+
+------------------------------------------------------------
+Variant: relax_loop_python_22
+------------------------------------------------------------
+  Run: relax_loop_python_22_run1.json
+    checksum: 150000000.000000
+    iters: 100000000
+    peak_rss_mb: 9.668
+    time_ms: 13189.04
+    wall_ms: 13245.761
+    [stdout excerpt]
+      time_ms: 13189.04
+      checksum: 150000000.000000
+      iters: 100000000
+    exit_code: 0
+
+  Run: relax_loop_python_22_run2.json
+    checksum: 150000000.000000
+    iters: 100000000
+    peak_rss_mb: 9.703
+    time_ms: 13210.03
+    wall_ms: 13256.736
+    [stdout excerpt]
+      time_ms: 13210.03
+      checksum: 150000000.000000
+      iters: 100000000
+    exit_code: 0
+
+  Run: relax_loop_python_22_run3.json
+    checksum: 150000000.000000
+    iters: 100000000
+    peak_rss_mb: 9.68
+    time_ms: 13233.09
+    wall_ms: 13282.729
+    [stdout excerpt]
+      time_ms: 13233.09
+      checksum: 150000000.000000
+      iters: 100000000
+    exit_code: 0
+
+------------------------------------------------------------
+Variant: relax_loop_rust_22
+------------------------------------------------------------
+  Run: relax_loop_rust_22_run1.json
+    checksum: 150000000.000000
+    iters: 100000000
+    peak_rss_mb: 3.898
+    time_ms: 177.30
+    wall_ms: 200.666
+    [stdout excerpt]
+      time_ms: 177.30
+      checksum: 150000000.000000
+      iters: 100000000
+    exit_code: 0
+
+  Run: relax_loop_rust_22_run2.json
+    checksum: 150000000.000000
+    iters: 100000000
+    peak_rss_mb: 3.602
+    time_ms: 173.22
+    wall_ms: 190.06
+    [stdout excerpt]
+      time_ms: 173.22
+      checksum: 150000000.000000
+      iters: 100000000
+    exit_code: 0
+
+  Run: relax_loop_rust_22_run3.json
+    checksum: 150000000.000000
+    iters: 100000000
+    peak_rss_mb: 3.602
+    time_ms: 178.29
+    wall_ms: 202.85
+    [stdout excerpt]
+      time_ms: 178.29
+      checksum: 150000000.000000
+      iters: 100000000
+    exit_code: 0
+
+
+============================================================
+Errors (exit_code != 0 or read failure)
+============================================================
+None.
+
+============================================================
+Missing metrics (expected but not found)
+============================================================
+None.

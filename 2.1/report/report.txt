@@ -1,0 +1,256 @@
+==============================================
+  SECTION 2.1 REPORT
+  Compilation and interpretation as materialization of semantics
+  Link to 1.5: Dijkstra sources from ../1.5 (same algorithm, different stage of analysis)
+==============================================
+
+1. System and compiler versions
+---
+== Section 2.1: Compilation and intermediate forms ==
+
+--- System and compiler versions ---
+OS: Windows, 64-bit
+gcc : gcc.exe (Rev2, Built by MSYS2 project) 12.1.0
+rustc : rustc 1.94.0 (4a4ef493e 2026-03-02)
+ghc : The Glorious Glasgow Haskell Compilation System, version 9.6.7
+python : Python 3.11.5
+
+--- C ---
+Exec: gcc -std=c17 -O0 -S "<project>\micro\c\relax.c" -o "<project>\out\c\relax_O0.s"
+Exec: gcc -std=c17 -O2 -S -fdump-tree-optimized relax.c -o "<project>\out\c\relax_O2.s"
+Exec: gcc -std=c17 -O2 "<project>\..\1.5\c\dijkstra.c" -S -o "<project>\out\c\dijkstra_O2.s"
+Exec: gcc -std=c17 -O2 "<project>\..\1.5\c\dijkstra.c" -o "<project>\out\c\dijkstra_c.exe"
+
+--- Rust ---
+Exec: rustc micro/rust/relax.rs -C opt-level=0 --emit=asm,llvm-ir --out-dir out/rust/O0
+Exec: rustc micro/rust/relax.rs -C opt-level=3 --emit=asm,llvm-ir --out-dir out/rust/O3
+Exec: rustc ../1.5/rust/dijkstra.rs -C opt-level=3 --emit=asm -o out/rust/dijkstra_rust
+Exec: rustc ../1.5/rust/dijkstra.rs -C opt-level=3 -o out/rust/dijkstra_rust.exe
+
+--- Haskell ---
+Exec: ghc -O0 -ddump-simpl -ddump-to-file micro/haskell/Relax.hs -o out/haskell/relax_O0.exe
+Exec: ghc -O2 -ddump-simpl -ddump-to-file micro/haskell/Relax.hs -o out/haskell/relax_O2.exe
+Exec: ghc -O2 -S ../1.5/haskell/Dijkstra.hs -o out/haskell/dijkstra_hs.s
+Exec: ghc -O2 ../1.5/haskell/Dijkstra.hs -o out/haskell/dijkstra_hs.exe
+
+--- Python ---
+
+
+
+2. Commands executed (summary)
+---
+C: gcc -O0 -S micro/c/relax.c -> out/c/relax_O0.s
+C: gcc -O2 -S -fdump-tree-optimized micro/c/relax.c -> out/c/relax_O2.s + tree dump
+C: gcc -O2 ../1.5/c/dijkstra.c -S -> out/c/dijkstra_O2.s
+C: gcc -O2 ../1.5/c/dijkstra.c -> out/c/dijkstra_c.exe
+Rust: rustc micro/rust/relax.rs -C opt-level=0 --emit=asm,llvm-ir --out-dir out/rust
+Rust: rustc micro/rust/relax.rs -C opt-level=3 --emit=asm,llvm-ir --out-dir out/rust
+Rust: rustc ../1.5/rust/dijkstra.rs -C opt-level=3 --emit=asm -o out/rust/dijkstra_rust
+Rust: rustc ../1.5/rust/dijkstra.rs -C opt-level=3 -o out/rust/dijkstra_rust.exe
+Haskell: ghc -O0/-O2 -ddump-simpl micro/haskell/Relax.hs -> out/haskell + Core dumps
+Haskell: ghc -O2 ../1.5/haskell/Dijkstra.hs -S -> out/haskell/dijkstra_hs.s
+Haskell: ghc -O2 ../1.5/haskell/Dijkstra.hs -> out/haskell/dijkstra_hs.exe
+Python: python dis_funcs.py micro/python/relax.py -> out/python/relax_funcs_dis.txt (dis of relax/step)
+Python: python -m py_compile micro/python/relax.py, ../1.5/python/dijkstra.py -> .pyc
+(Note: On this configuration the report uses LLVM IR as the observable intermediate form for Rust; MIR was not included.)
+
+3. Table: Artifacts by language
+---
+| Language | Intermediate form | Low-level form | Final artifact |
+|----------|-------------------|----------------|----------------|
+| C        | GCC tree dump (optimized) | asm (.s) | exe |
+| Rust     | LLVM IR           | asm            | exe |
+| Haskell  | Core (dump-simpl) | asm            | exe |
+| Python   | bytecode dis      | bytecode (VM)  | pyc |
+
+4. Table: Sizes (Dijkstra final artifact)
+---
+| Language | Artifact | Size (bytes) |
+|----------|----------|--------------|
+| C | dijkstra_c.exe | 416317 |
+| Rust | dijkstra_rust.exe | 210944 |
+| Haskell | dijkstra_hs.exe | 17334272 |
+| Python | main.*.pyc | 3810 |
+
+4b. Sizes of selected intermediate artifacts (micro)
+---
+C relax_O0.s: 2723 bytes
+C relax_O2.s: 1273 bytes
+Rust O3 relax.ll: 7438 bytes
+Rust O3 relax.s: 4716 bytes
+Haskell Relax_O0.dump-simpl: 843 bytes
+Haskell Relax_O2.dump-simpl: 957 bytes
+Python relax_funcs_dis.txt: 1032 bytes
+
+5. Excerpts: step/relax only (targeted fragments)
+---
+----- C relax_O0.s (relax:) -----
+relax:
+	pushq	%rbp
+	.seh_pushreg	%rbp
+	movq	%rsp, %rbp
+	.seh_setframe	%rbp, 0
+	subq	$16, %rsp
+	.seh_stackalloc	16
+	.seh_endprologue
+	movsd	%xmm0, 16(%rbp)
+	movsd	%xmm1, 24(%rbp)
+	movsd	%xmm2, 32(%rbp)
+	movsd	24(%rbp), %xmm0
+	addsd	32(%rbp), %xmm0
+	movsd	%xmm0, -8(%rbp)
+	movsd	16(%rbp), %xmm0
+	comisd	-8(%rbp), %xmm0
+	jbe	.L9
+	movsd	-8(%rbp), %xmm0
+	jmp	.L7
+.L9:
+	movsd	16(%rbp), %xmm0
+.L7:
+	movq	%xmm0, %rax
+	movq	%rax, %xmm0
+	addq	$16, %rsp
+	popq	%rbp
+	ret
+	.seh_endproc
+
+----- C relax_O0.s (step:) -----
+step:
+	pushq	%rbp
+	.seh_pushreg	%rbp
+	movq	%rsp, %rbp
+	.seh_setframe	%rbp, 0
+	subq	$32, %rsp
+	.seh_stackalloc	32
+	.seh_endprologue
+	movsd	%xmm0, 16(%rbp)
+	movsd	%xmm1, 24(%rbp)
+	movsd	%xmm2, 32(%rbp)
+	movsd	32(%rbp), %xmm1
+	movsd	24(%rbp), %xmm0
+	movq	16(%rbp), %rax
+	movapd	%xmm1, %xmm2
+	movapd	%xmm0, %xmm1
+	movq	%rax, %xmm0
+	call	relax
+	movq	%xmm0, %rax
+	movq	%rax, %xmm0
+	addq	$32, %rsp
+	popq	%rbp
+	ret
+	.seh_endproc
+	.def	__main;	.scl	2;	.type	32;	.endef
+	.section .rdata,"dr"
+.LC3:
+	.ascii "%.2f\12\0"
+
+----- C relax_O2.s (step, relax inlined) -----
+step:
+	.seh_endprologue
+	addsd	%xmm2, %xmm1
+	minsd	%xmm0, %xmm1
+	movapd	%xmm1, %xmm0
+	ret
+	.seh_endproc
+	.def	__main;	.scl	2;	.type	32;	.endef
+	.section	.text.startup,"x"
+	.p2align 4
+	.globl	main
+	.def	main;	.scl	2;	.type	32;	.endef
+
+----- Rust relax O3 LLVM IR (@step) -----
+define dso_local noundef double @step(double noundef %old, double noundef %du, double noundef %w) unnamed_addr #3 {
+start:
+  %0 = fadd double %du, %w
+  %_4 = fcmp olt double %0, %old
+  %_0.sroa.0.0 = select i1 %_4, double %0, double %old
+  ret double %_0.sroa.0.0
+
+----- Rust relax O3 asm (step) -----
+step:
+	addsd	%xmm2, %xmm1
+	minsd	%xmm0, %xmm1
+	movapd	%xmm1, %xmm0
+	retq
+
+	.def	main;
+	.scl	2;
+
+----- Haskell Core O0 (relax, step = relax) -----
+relax
+  = \ old_aww du_awx w_awy ->
+      let { alt_awz = + $fNumDouble du_awx w_awy } in
+      case < $fOrdDouble alt_awz old_aww of {
+        False -> old_aww;
+        True -> alt_awz
+      }
+
+step = relax
+
+----- Haskell Core O2 (relax) -----
+relax
+  = \ old_awk du_awl w_awm ->
+      case du_awl of { D# x_a13Q ->
+      case w_awm of { D# y_a13T ->
+      case old_awk of wild2_a143 { D# y1_a144 ->
+      let { x1_a141 = +## x_a13Q y_a13T } in
+      case <## x1_a141 y1_a144 of {
+        __DEFAULT -> wild2_a143;
+        1# -> D# x1_a141
+      }
+      }
+      }
+      }
+
+step = relax
+
+----- Python bytecode (relax, step) -----
+=== relax ===
+  1           0 RESUME                   0
+
+  2           2 LOAD_FAST                1 (du)
+              4 LOAD_FAST                2 (w)
+              6 BINARY_OP                0 (+)
+             10 STORE_FAST               3 (alt)
+
+  3          12 LOAD_FAST                3 (alt)
+             14 LOAD_FAST                0 (old)
+             16 COMPARE_OP               0 (<)
+             22 POP_JUMP_FORWARD_IF_FALSE     2 (to 28)
+             24 LOAD_FAST                3 (alt)
+             26 JUMP_FORWARD             1 (to 30)
+        >>   28 LOAD_FAST                0 (old)
+        >>   30 RETURN_VALUE
+=== step ===
+  6           0 RESUME                   0
+
+  7           2 LOAD_GLOBAL              1 (NULL + relax)
+             14 LOAD_FAST                0 (old)
+             16 LOAD_FAST                1 (du)
+             18 LOAD_FAST                2 (w)
+             20 PRECALL                  3
+             24 CALL                     3
+             34 RETURN_VALUE
+
+5b. C inlining evidence (relax/step)
+---
+O0: separate symbol 'relax' present: True; 'call relax' in step: True
+O2: separate symbol 'relax' present: False; 'call relax' in step: False
+Conclusion: O0: step calls relax; O2: relax inlined into step (no separate call), step body is addsd/minsd only.
+
+6. Observations
+---
+C: Direct path from source to asm. O0: step contains 'call relax'; O2: relax inlined (section 5b). Binary compact; low-level tied to memory model.
+Rust: Chain source -> LLVM IR -> asm. @step in LLVM IR shows fadd, fcmp, select (relax inlined). Asm step: addsd, minsd, movapd.
+Haskell: Core O0: relax as let/case; step = relax. O2: unboxed (+##, <##, D#); same semantics, fewer indirections.
+Python: Bytecode of relax/step (section 5): LOAD_FAST, BINARY_OP, COMPARE_OP, no native inlining; VM interprets.
+
+7. Optimization table (micro: relax/step)
+---
+| Language | Separate relax without opt | Inlining/collapse with opt | Evidence |
+|----------|----------------------------|----------------------------|----------|
+| C        | Yes: step calls relax (O0)  | Yes: step body is addsd/minsd only (O2) | Section 5b |
+| Rust     | O0 has step/relax           | O3: @step = fadd+fcmp+select, no call | LLVM IR + asm excerpt |
+| Haskell  | O0: relax = let/case        | O2: relax = unboxed primops | Core excerpts O0 vs O2 |
+| Python   | N/A (no native inlining)    | bytecode, VM-level         | dis(relax), dis(step) |
+

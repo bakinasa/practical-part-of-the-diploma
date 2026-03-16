@@ -1,0 +1,14 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\counter_rust.exe",
+    "atomic",
+    "2",
+    "200000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 33.852,
+  "peak_rss_bytes": 2236416,
+  "peak_rss_mb": 2.133,
+  "stdout": "language: Rust\nvariant: atomic\nworkers: 2\niterations_per_worker: 200000\nexpected: 400000\nobserved: 400000\nok: 1\ntime_ms: 6.815\n",
+  "stderr": ""
+}

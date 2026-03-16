@@ -1,0 +1,16 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\counter_hs.exe",
+    "race",
+    "4",
+    "200000",
+    "+RTS",
+    "-N4"
+  ],
+  "exit_code": 0,
+  "wall_ms": 28.732,
+  "peak_rss_bytes": 2248704,
+  "peak_rss_mb": 2.145,
+  "stdout": "language: Haskell\nvariant: race\nworkers: 4\niterations_per_worker: 200000\nexpected: 800000\nobserved: 217973\nok: 0\ntime_ms: 6.0053\n",
+  "stderr": ""
+}

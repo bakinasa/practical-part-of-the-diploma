@@ -1,0 +1,12 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\out\\relax_loop_rust_22.exe"
+  ],
+  "exit_code": 0,
+  "wall_ms": 190.06,
+  "peak_rss_bytes": 3776512,
+  "peak_rss_mb": 3.602,
+  "samples": 10,
+  "stdout": "time_ms: 173.22\nchecksum: 150000000.000000\niters: 100000000\n",
+  "stderr": ""
+}

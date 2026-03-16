@@ -1,0 +1,15 @@
+﻿{
+  "command": [
+    "python",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\python\\async_py.py",
+    "seq",
+    "1000",
+    "10"
+  ],
+  "exit_code": 0,
+  "wall_ms": 10665.995,
+  "peak_rss_bytes": 21041152,
+  "peak_rss_mb": 20.066,
+  "stdout": "language: Python\nmode: seq\ntasks: 1000\ndelay_ms: 10\nchecksum: 1000\ntime_ms: 10458.083\n",
+  "stderr": ""
+}

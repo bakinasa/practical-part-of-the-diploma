@@ -1,0 +1,14 @@
+﻿{
+  "command": [
+    "python",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\python\\dijkstra_22.py",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\graph.txt"
+  ],
+  "exit_code": 0,
+  "wall_ms": 56255.065,
+  "peak_rss_bytes": 304922624,
+  "peak_rss_mb": 290.797,
+  "samples": 2970,
+  "stdout": "parse_ms: 4490.59\nalgo_avg_ms: 1015.25\nchecksum: 1212568664.000005\nruns: 50\nparse_peak_bytes: 65789250\nalgo_peak_bytes: 73985502\n",
+  "stderr": ""
+}

@@ -1,0 +1,2 @@
+﻿python\non_exhaustive.py:10: error: Missing return statement  [return]
+Found 1 error in 1 file (checked 1 source file)

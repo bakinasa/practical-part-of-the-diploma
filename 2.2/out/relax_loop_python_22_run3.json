@@ -1,0 +1,13 @@
+﻿{
+  "command": [
+    "python",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\python\\relax_loop_22.py"
+  ],
+  "exit_code": 0,
+  "wall_ms": 13282.729,
+  "peak_rss_bytes": 10149888,
+  "peak_rss_mb": 9.68,
+  "samples": 712,
+  "stdout": "time_ms: 13233.09\nchecksum: 150000000.000000\niters: 100000000\n",
+  "stderr": ""
+}

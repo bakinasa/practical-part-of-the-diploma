@@ -1,0 +1,14 @@
+error[E0499]: cannot borrow `v` as mutable more than once at a time
+ --> two_mut_borrows.rs:5:14
+  |
+4 |     let r1 = &mut v;
+  |              ------ first mutable borrow occurs here
+5 |     let r2 = &mut v;
+  |              ^^^^^^ second mutable borrow occurs here
+6 |
+7 |     println!("{:?} {:?}", r1, r2);
+  |                           -- first borrow later used here
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0499`.

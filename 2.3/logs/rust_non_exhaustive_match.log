@@ -1,0 +1,24 @@
+error[E0004]: non-exhaustive patterns: `Color::Blue` not covered
+  --> non_exhaustive_match.rs:8:11
+   |
+ 8 |     match c {
+   |           ^ pattern `Color::Blue` not covered
+   |
+note: `Color` defined here
+  --> non_exhaustive_match.rs:1:6
+   |
+ 1 | enum Color {
+   |      ^^^^^
+...
+ 4 |     Blue,
+   |     ---- not covered
+   = note: the matched value is of type `Color`
+help: ensure that all possible cases are being handled by adding a match arm with a wildcard pattern or an explicit pattern as shown
+   |
+10 ~         Color::Green => 2,
+11 ~         Color::Blue => todo!(),
+   |
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0004`.

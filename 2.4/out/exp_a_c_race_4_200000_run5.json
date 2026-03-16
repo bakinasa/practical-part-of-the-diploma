@@ -1,0 +1,14 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\counter_c.exe",
+    "race",
+    "4",
+    "200000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 27.951,
+  "peak_rss_bytes": 2244608,
+  "peak_rss_mb": 2.141,
+  "stdout": "language: C\nvariant: race\nworkers: 4\niterations_per_worker: 200000\nexpected: 800000\nobserved: 400646\nok: 0\ntime_ms: 2.682\n",
+  "stderr": ""
+}

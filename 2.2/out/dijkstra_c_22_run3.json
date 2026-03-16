@@ -1,0 +1,13 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\out\\dijkstra_c_22.exe",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\graph.txt"
+  ],
+  "exit_code": 0,
+  "wall_ms": 4216.807,
+  "peak_rss_bytes": 15200256,
+  "peak_rss_mb": 14.496,
+  "samples": 208,
+  "stdout": "parse_ms: 1889.62\nalgo_avg_ms: 46.07\nchecksum: 1212568664.000005\nruns: 50\nparse_alloc_calls: 2\nparse_free_calls: 2\nparse_total_bytes: 800000\nparse_peak_bytes: 800000\nalgo_alloc_calls: 0\nalgo_free_calls: 0\nalgo_total_bytes: 0\nalgo_peak_bytes: 0\n",
+  "stderr": ""
+}

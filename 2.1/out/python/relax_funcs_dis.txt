@@ -1,0 +1,26 @@
+﻿=== relax ===
+  1           0 RESUME                   0
+
+  2           2 LOAD_FAST                1 (du)
+              4 LOAD_FAST                2 (w)
+              6 BINARY_OP                0 (+)
+             10 STORE_FAST               3 (alt)
+
+  3          12 LOAD_FAST                3 (alt)
+             14 LOAD_FAST                0 (old)
+             16 COMPARE_OP               0 (<)
+             22 POP_JUMP_FORWARD_IF_FALSE     2 (to 28)
+             24 LOAD_FAST                3 (alt)
+             26 JUMP_FORWARD             1 (to 30)
+        >>   28 LOAD_FAST                0 (old)
+        >>   30 RETURN_VALUE
+=== step ===
+  6           0 RESUME                   0
+
+  7           2 LOAD_GLOBAL              1 (NULL + relax)
+             14 LOAD_FAST                0 (old)
+             16 LOAD_FAST                1 (du)
+             18 LOAD_FAST                2 (w)
+             20 PRECALL                  3
+             24 CALL                     3
+             34 RETURN_VALUE

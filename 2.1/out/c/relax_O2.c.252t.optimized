@@ -1,0 +1,60 @@
+
+;; Function printf.constprop (printf.constprop.0, funcdef_no=32, decl_uid=3071, cgraph_uid=38, symbol_order=37) (executed once)
+
+__attribute__((unused))
+__attribute__((nonnull (1), format (gnu_printf, 1, 2)))
+int printf.constprop (const char * __format)
+{
+  int __retval;
+  char * __local_argv;
+  char * __local_argv.1_1;
+  struct FILE * _2;
+
+  <bb 2> [local count: 1073741824]:
+  __builtin_va_start (&__local_argv, 0);
+  __local_argv.1_1 = __local_argv;
+  _2 = __acrt_iob_func (1);
+  __retval_3 = __mingw_vfprintf (_2, "%.2f\n", __local_argv.1_1);
+  __local_argv ={v} {CLOBBER(eol)};
+  return __retval_3;
+
+}
+
+
+
+;; Function step (step, funcdef_no=30, decl_uid=3034, cgraph_uid=31, symbol_order=30)
+
+Removing basic block 3
+double step (double old, double du, double w)
+{
+  double alt;
+  double iftmp.0_6;
+
+  <bb 2> [local count: 1073741824]:
+  alt_5 = du_3(D) + w_4(D);
+  if (old_2(D) > alt_5)
+    goto <bb 3>; [50.00%]
+  else
+    goto <bb 4>; [50.00%]
+
+  <bb 3> [local count: 536870912]:
+
+  <bb 4> [local count: 1073741824]:
+  # iftmp.0_6 = PHI <alt_5(3), old_2(D)(2)>
+  return iftmp.0_6;
+
+}
+
+
+
+;; Function main (main, funcdef_no=31, decl_uid=3037, cgraph_uid=32, symbol_order=31) (executed once)
+
+int main ()
+{
+  <bb 2> [local count: 1073741824]:
+  printf.constprop ("%.2f\n", 7.0e+0);
+  return 0;
+
+}
+
+

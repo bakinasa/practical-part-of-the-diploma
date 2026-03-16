@@ -1,0 +1,15 @@
+﻿{
+  "command": [
+    "python",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\python\\counter_py.py",
+    "race",
+    "8",
+    "200000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 370.562,
+  "peak_rss_bytes": 154308608,
+  "peak_rss_mb": 147.16,
+  "stdout": "language: Python\nvariant: race\nworkers: 8\niterations_per_worker: 200000\nexpected: 1600000\nobserved: 418422\nok: 0\ntime_ms: 278.436\n",
+  "stderr": ""
+}

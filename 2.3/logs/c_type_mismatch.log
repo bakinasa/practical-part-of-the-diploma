@@ -1,0 +1,10 @@
+c/type_mismatch.c: In function 'main':
+c/type_mismatch.c:9:16: error: passing argument 1 of 'add' makes integer from pointer without a cast [-Werror=int-conversion]
+    9 |     return add(s, 1);
+      |                ^
+      |                |
+      |                char *
+c/type_mismatch.c:3:13: note: expected 'int' but argument is of type 'char *'
+    3 | int add(int a, int b) {
+      |         ~~~~^
+cc1.exe: all warnings being treated as errors

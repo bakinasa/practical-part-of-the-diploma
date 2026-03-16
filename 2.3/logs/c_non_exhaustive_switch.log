@@ -1,0 +1,5 @@
+c/non_exhaustive_switch.c: In function 'to_code':
+c/non_exhaustive_switch.c:10:5: error: enumeration value 'BLUE' not handled in switch [-Werror=switch]
+   10 |     switch (c) {
+      |     ^~~~~~
+cc1.exe: all warnings being treated as errors

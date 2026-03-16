@@ -1,0 +1,2 @@
+﻿python\none_mismatch.py:6: error: Argument 1 to "inc" has incompatible type "None"; expected "int"  [arg-type]
+Found 1 error in 1 file (checked 1 source file)

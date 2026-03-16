@@ -1,0 +1,47 @@
+
+==================== Tidy Core ====================
+
+Result size of Tidy Core
+  = {terms: 67, types: 51, coercions: 9, joins: 0/1}
+
+$trModule4 = "main"#
+
+$trModule3 = TrNameS $trModule4
+
+$trModule2 = "Main"#
+
+$trModule1 = TrNameS $trModule2
+
+$trModule = Module $trModule3 $trModule1
+
+relax
+  = \ old_awk du_awl w_awm ->
+      case du_awl of { D# x_a13Q ->
+      case w_awm of { D# y_a13T ->
+      case old_awk of wild2_a143 { D# y1_a144 ->
+      let { x1_a141 = +## x_a13Q y_a13T } in
+      case <## x1_a141 y1_a144 of {
+        __DEFAULT -> wild2_a143;
+        1# -> D# x1_a141
+      }
+      }
+      }
+      }
+
+step = relax
+
+main4 = D# 7.0##
+
+main3 = $fShowDouble_$sshowSignedFloat $fShowDouble2 minExpt main4
+
+main2 = main3 []
+
+main1 = \ eta_a14b -> hPutStr2 stdout main2 True eta_a14b
+
+main = main1 `cast` <Co:3> :: ...
+
+main5 = runMainIO1 (main1 `cast` <Co:3> :: ...)
+
+main = main5 `cast` <Co:3> :: ...
+
+

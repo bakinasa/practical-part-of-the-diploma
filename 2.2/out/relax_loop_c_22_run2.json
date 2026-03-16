@@ -1,0 +1,12 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\out\\relax_loop_c_22.exe"
+  ],
+  "exit_code": 0,
+  "wall_ms": 207.874,
+  "peak_rss_bytes": 3686400,
+  "peak_rss_mb": 3.516,
+  "samples": 11,
+  "stdout": "time_ms: 195.78\nchecksum: 150000000.000000\niters: 100000000\n",
+  "stderr": ""
+}

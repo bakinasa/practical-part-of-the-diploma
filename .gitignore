@@ -1,0 +1,17 @@
+# Python (project-wide)
+venv/
+.env/
+__pycache__/
+.mypy_cache/
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db

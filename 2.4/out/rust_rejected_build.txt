@@ -1,0 +1,36 @@
+﻿rustc.exe : error[E0277]: `Rc<RefCell<u64>>` cannot be sent between threads safely
+C:\Users\bakin\OneDrive\Рабочий стол\2.3\2.4\run_2_4.ps1:32 знак:1
++ & rustc (Join-Path $root "rust\rust_rejected.rs") -o (Join-Path $out  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error[E0277]: `... threads safely:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  --> C:\Users\bakin\OneDrive\╨а╨░╨▒╨╛╤З╨╕╨╣ ╤Б╤В╨╛╨╗\2.3\2.4\rust\rust_rejected.rs:11:36
+   |
+11 |           handles.push(thread::spawn(move || {
+   |                        ------------- ^------
+   |                        |             |
+   |  ______________________|_____________within this `{closure@rust_rejected.rs:11:36}`
+   | |                      |
+   | |                      required by a bound introduced by this call
+12 | |             for _ in 0..100_000 {
+13 | |                 *c.borrow_mut() += 1;
+14 | |             }
+15 | |         }));
+   | |_________^ `Rc<RefCell<u64>>` cannot be sent between threads safely
+   |
+   = help: within `{closure@rust_rejected.rs:11:36}`, the trait `Send` is not implemented for `Rc<RefCell<u64>>`
+note: required because it's used within this closure
+  --> C:\Users\bakin\OneDrive\╨а╨░╨▒╨╛╤З╨╕╨╣ ╤Б╤В╨╛╨╗\2.3\2.4\rust\rust_rejected.rs:11:36
+   |
+11 |         handles.push(thread::spawn(move || {
+   |                                    ^^^^^^^
+note: required by a bound in `spawn`
+  --> /rustc/4a4ef493e3a1488c6e321570238084b38948f6db/library\std\src\thread\functions.rs:125:0
+   = note: the full name for the type has been written to 'C:\Users\bakin\OneDrive\╨а╨░╨▒╨╛╤З╨╕╨╣ 
+╤Б╤В╨╛╨╗\2.3\2.4\out\rust_rejected.long-type-10009873724806321296.txt'
+   = note: consider using `--verbose` to print the full type name to the console
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0277`.

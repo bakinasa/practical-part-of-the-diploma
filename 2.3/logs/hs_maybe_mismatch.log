@@ -1,0 +1,9 @@
+
+MaybeMismatch.hs:5:19: error: [GHC-83865]
+    * Couldn't match expected type `Int' with actual type `Maybe a0'
+    * In the first argument of `inc', namely `Nothing'
+      In the first argument of `print', namely `(inc Nothing)'
+      In the expression: print (inc Nothing)
+  |
+5 | main = print (inc Nothing)
+  |                   ^^^^^^^

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<project>", line 6, in <module>
+    print(inc(value))
+          ^^^^^^^^^^
+  File "<project>", line 2, in inc
+    return x + 1
+           ~~^~~
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'

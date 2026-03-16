@@ -1,0 +1,58 @@
+# Python
+venv/
+.env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# C build outputs
+c/null_deref
+c/null_deref.exe
+c/null_deref_nosan
+c/null_deref_nosan.exe
+c/type_mismatch
+c/type_mismatch.exe
+c/non_exhaustive_switch
+c/non_exhaustive_switch.exe
+c/use_after_free
+c/use_after_free.exe
+
+# Rust build outputs
+rust/type_mismatch
+rust/type_mismatch.exe
+rust/option_mismatch
+rust/option_mismatch.exe
+rust/use_after_move
+rust/use_after_move.exe
+rust/two_mut_borrows
+rust/two_mut_borrows.exe
+rust/non_exhaustive_match
+rust/non_exhaustive_match.exe
+
+# Haskell build outputs
+haskell/type_mismatch
+haskell/type_mismatch.exe
+haskell/maybe_mismatch
+haskell/maybe_mismatch.exe
+haskell/non_exhaustive
+haskell/non_exhaustive.exe
+haskell/*.hi
+haskell/*.o
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db

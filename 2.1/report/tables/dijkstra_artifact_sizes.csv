@@ -1,0 +1,5 @@
+Language,Artifact,Size_bytes
+C,dijkstra_c.exe,416317
+Rust,dijkstra_rust.exe,210944
+Haskell,dijkstra_hs.exe,17334272
+Python,main.*.pyc,3810

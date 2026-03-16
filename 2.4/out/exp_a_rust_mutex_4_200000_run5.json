@@ -1,0 +1,14 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\counter_rust.exe",
+    "mutex",
+    "4",
+    "200000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 85.133,
+  "peak_rss_bytes": 3891200,
+  "peak_rss_mb": 3.711,
+  "stdout": "language: Rust\nvariant: mutex\nworkers: 4\niterations_per_worker: 200000\nexpected: 800000\nobserved: 800000\nok: 1\ntime_ms: 54.126\n",
+  "stderr": ""
+}

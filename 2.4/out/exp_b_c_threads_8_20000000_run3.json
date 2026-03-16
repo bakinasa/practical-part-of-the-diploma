@@ -1,0 +1,14 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\sum_c.exe",
+    "threads",
+    "8",
+    "20000000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 39.335,
+  "peak_rss_bytes": 2240512,
+  "peak_rss_mb": 2.137,
+  "stdout": "language: C\nmode: threads\nworkers: 8\nn: 20000000\nchecksum: 17217913594410967199\ntime_ms: 5.738\n",
+  "stderr": ""
+}

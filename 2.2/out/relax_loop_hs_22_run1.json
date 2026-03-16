@@ -1,0 +1,14 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.2\\out\\relax_loop_hs_22.exe",
+    "+RTS",
+    "-s"
+  ],
+  "exit_code": 0,
+  "wall_ms": 259.891,
+  "peak_rss_bytes": 13701120,
+  "peak_rss_mb": 13.066,
+  "samples": 11,
+  "stdout": "time_ms: 0.0\nchecksum: 3.0e7\niters: 20000000\n",
+  "stderr": "   1,600,100,184 bytes allocated in the heap\n           8,232 bytes copied during GC\n          42,856 bytes maximum residency (2 sample(s))\n          26,776 bytes maximum slop\n               6 MiB total memory in use (0 MiB lost due to fragmentation)\n\n                                     Tot time (elapsed)  Avg pause  Max pause\n  Gen  0       381 colls,     0 par    0.000s   0.004s     0.0000s    0.0001s\n  Gen  1         2 colls,     0 par    0.000s   0.001s     0.0006s    0.0009s\n\n  INIT    time    0.000s  (  0.000s elapsed)\n  MUT     time    0.141s  (  0.216s elapsed)\n  GC      time    0.000s  (  0.005s elapsed)\n  EXIT    time    0.000s  (  0.001s elapsed)\n  Total   time    0.141s  (  0.222s elapsed)\n\n  %GC     time       0.0%  (0.0% elapsed)\n\n  Alloc rate    11,378,490,197 bytes per MUT second\n\n  Productivity 100.0% of total user, 97.2% of total elapsed\n\n"
+}

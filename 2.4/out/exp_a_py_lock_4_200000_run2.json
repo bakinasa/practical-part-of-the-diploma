@@ -1,0 +1,15 @@
+﻿{
+  "command": [
+    "python",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\python\\counter_py.py",
+    "lock",
+    "4",
+    "200000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 5526.243,
+  "peak_rss_bytes": 86065152,
+  "peak_rss_mb": 82.078,
+  "stdout": "language: Python\nvariant: lock\nworkers: 4\niterations_per_worker: 200000\nexpected: 800000\nobserved: 800000\nok: 1\ntime_ms: 5443.394\n",
+  "stderr": ""
+}

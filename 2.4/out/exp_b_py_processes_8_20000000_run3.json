@@ -1,0 +1,15 @@
+﻿{
+  "command": [
+    "python",
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\python\\sum_py.py",
+    "processes",
+    "8",
+    "20000000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 2373.447,
+  "peak_rss_bytes": 147894272,
+  "peak_rss_mb": 141.043,
+  "stdout": "language: Python\nmode: processes\nworkers: 8\nn: 20000000\nchecksum: 17217913594410967199\ntime_ms: 2281.874\n",
+  "stderr": ""
+}

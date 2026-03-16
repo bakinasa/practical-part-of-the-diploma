@@ -1,0 +1,11 @@
+
+TypeMismatch.hs:5:19: error: [GHC-83865]
+    * Couldn't match type `[Char]' with `Int'
+      Expected: Int
+        Actual: String
+    * In the first argument of `add', namely `"42"'
+      In the first argument of `print', namely `(add "42" 1)'
+      In the expression: print (add "42" 1)
+  |
+5 | main = print (add "42" 1)
+  |                   ^^^^

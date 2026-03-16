@@ -1,0 +1,14 @@
+﻿{
+  "command": [
+    "C:\\Users\\bakin\\OneDrive\\╨рсюўшщ ёЄюы\\2.3\\2.4\\out\\counter_c.exe",
+    "mutex",
+    "8",
+    "200000"
+  ],
+  "exit_code": 0,
+  "wall_ms": 86.107,
+  "peak_rss_bytes": 3842048,
+  "peak_rss_mb": 3.664,
+  "stdout": "language: C\nvariant: mutex\nworkers: 8\niterations_per_worker: 200000\nexpected: 1600000\nobserved: 1600000\nok: 1\ntime_ms: 74.680\n",
+  "stderr": ""
+}

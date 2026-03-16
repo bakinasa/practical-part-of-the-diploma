@@ -1,0 +1,302 @@
+==============================================
+  SECTION 2.3 EXPERIMENT REPORT
+  Error detection in C, Rust, Haskell, Python
+==============================================
+
+--- SYSTEM ---
+OS: Windows, 64-bit
+
+--- CPU ---
+CPU: AMD Ryzen 5 4600H with Radeon Graphics
+Cores: 6, logical: 12
+
+--- MEMORY (RAM) ---
+Total RAM: 15.37 GB
+Free: 4.46 GB
+
+--- COMPILERS AND VERSIONS ---
+gcc : gcc.exe (Rev2, Built by MSYS2 project) 12.1.0 Copyright (C) 2022 Free Software Foundation, Inc.
+rustc : rustc 1.94.0 (4a4ef493e 2026-03-02)
+ghc : The Glorious Glasgow Haskell Compilation System, version 9.6.7
+python : Python 3.11.5
+mypy : mypy 1.19.1 (compiled: yes)
+
+--- BUILD / OPTIMIZATION FLAGS ---
+C (strict): -std=c17 -Wall -Wextra -Wpedantic -Werror
+C (enum switch): additionally -Wswitch-enum
+C (sanitizers): -O1 -g -fsanitize=address,undefined for null_deref; -fsanitize=address for use_after_free
+C (no sanitize): -O1 -g only for null_deref_nosan to observe raw Segmentation Fault / crash
+Rust: rustc default flags
+Haskell: -Wall -Werror, -Wincomplete-patterns for exhaustive match
+Python: default interpreter; mypy: --strict
+
+==============================================
+  EXPERIMENT LOGS (with comments)
+==============================================
+
+---------- c_type_mismatch.log ----------
+[Comment] C: type mismatch - char* passed instead of int. Expect compile error.
+c/type_mismatch.c: In function 'main':
+c/type_mismatch.c:9:16: error: passing argument 1 of 'add' makes integer from pointer without a cast [-Werror=int-conversion]
+    9 |     return add(s, 1);
+      |                ^
+      |                |
+      |                char *
+c/type_mismatch.c:3:13: note: expected 'int' but argument is of type 'char *'
+    3 | int add(int a, int b) {
+      |         ~~~~^
+cc1.exe: all warnings being treated as errors
+
+
+---------- c_non_exhaustive_switch.log ----------
+[Comment] C: incomplete switch on enum - no case BLUE. Expect -Wswitch-enum error.
+c/non_exhaustive_switch.c: In function 'to_code':
+c/non_exhaustive_switch.c:10:5: error: enumeration value 'BLUE' not handled in switch [-Werror=switch]
+   10 |     switch (c) {
+      |     ^~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+---------- c_null_deref_build.log ----------
+[Comment] C: build null_deref with UBSan+ASan (may fail link on Windows).
+C:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot find -lasan: No such file or directory
+C:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot find -lubsan: No such file or directory
+collect2.exe: error: ld returned 1 exit status
+
+
+---------- c_null_deref.log ----------
+[Comment] C: run null_deref with sanitizers - NULL dereference. Expect ASan/UBSan message if linked.
+(file missing)
+
+
+---------- c_null_deref_nosan_build.log ----------
+[Comment] C: build null_deref without -fsanitize (plain gcc). Succeeds; binary will crash at runtime.
+(empty)
+
+
+---------- c_null_deref_nosan.log ----------
+[Comment] C: run null_deref without sanitizers. Expect Segmentation Fault (or access violation on Windows).
+Process exited with code -1073741819 (e.g. -1073741819 = 0xC0000005 ACCESS_VIOLATION on Windows; 139 = SIGSEGV on Linux).
+
+
+---------- c_use_after_free_build.log ----------
+[Comment] C: build use_after_free with ASan.
+c/use_after_free.c: In function 'main':
+c/use_after_free.c:14:5: warning: pointer 'p' used after 'free' [-Wuse-after-free]
+   14 |     printf("%s\n", p);
+      |     ^~~~~~~~~~~~~~~~~
+c/use_after_free.c:12:5: note: call to 'free' here
+   12 |     free(p);
+      |     ^~~~~~~
+C:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot find -lasan: No such file or directory
+collect2.exe: error: ld returned 1 exit status
+
+
+---------- c_use_after_free.log ----------
+[Comment] C: use after free. Expect heap-use-after-free.
+(file missing)
+
+
+---------- rust_type_mismatch.log ----------
+[Comment] Rust: type mismatch - &str instead of i32. Expect compile error.
+error[E0308]: mismatched types
+ --> type_mismatch.rs:7:17
+  |
+7 |     let _ = add(s, 1);
+  |             --- ^ expected `i32`, found `&str`
+  |             |
+  |             arguments to this function are incorrect
+  |
+note: function defined here
+ --> type_mismatch.rs:1:4
+  |
+1 | fn add(a: i32, b: i32) -> i32 {
+  |    ^^^ ------
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0308`.
+
+
+---------- rust_option_mismatch.log ----------
+[Comment] Rust: Option<i32> assigned to i32. Expect compile error.
+error[E0308]: mismatched types
+ --> option_mismatch.rs:7:18
+  |
+7 |     let x: i32 = maybe;
+  |            ---   ^^^^^ expected `i32`, found `Option<i32>`
+  |            |
+  |            expected due to this
+  |
+  = note: expected type `i32`
+             found enum `Option<i32>`
+help: consider using `Option::expect` to unwrap the `Option<i32>` value, panicking if the value is an `Option::None`
+  |
+7 |     let x: i32 = maybe.expect("REASON");
+  |                       +++++++++++++++++
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0308`.
+
+
+---------- rust_use_after_move.log ----------
+[Comment] Rust: use after move - borrow of moved value. Expect compile error.
+error[E0382]: borrow of moved value: `s`
+ --> use_after_move.rs:5:20
+  |
+2 |     let s = String::from("hello");
+  |         - move occurs because `s` has type `String`, which does not implement the `Copy` trait
+3 |     let t = s;
+  |             - value moved here
+4 |
+5 |     println!("{}", s);
+  |                    ^ value borrowed here after move
+  |
+  = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider cloning the value if the performance cost is acceptable
+  |
+3 |     let t = s.clone();
+  |              ++++++++
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0382`.
+
+
+---------- rust_two_mut_borrows.log ----------
+[Comment] Rust: two mutable borrows at once. Expect compile error.
+error[E0499]: cannot borrow `v` as mutable more than once at a time
+ --> two_mut_borrows.rs:5:14
+  |
+4 |     let r1 = &mut v;
+  |              ------ first mutable borrow occurs here
+5 |     let r2 = &mut v;
+  |              ^^^^^^ second mutable borrow occurs here
+6 |
+7 |     println!("{:?} {:?}", r1, r2);
+  |                           -- first borrow later used here
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0499`.
+
+
+---------- rust_non_exhaustive_match.log ----------
+[Comment] Rust: incomplete match on enum - no Color::Blue. Expect compile error.
+error[E0004]: non-exhaustive patterns: `Color::Blue` not covered
+  --> non_exhaustive_match.rs:8:11
+   |
+ 8 |     match c {
+   |           ^ pattern `Color::Blue` not covered
+   |
+note: `Color` defined here
+  --> non_exhaustive_match.rs:1:6
+   |
+ 1 | enum Color {
+   |      ^^^^^
+...
+ 4 |     Blue,
+   |     ---- not covered
+   = note: the matched value is of type `Color`
+help: ensure that all possible cases are being handled by adding a match arm with a wildcard pattern or an explicit pattern as shown
+   |
+10 ~         Color::Green => 2,
+11 ~         Color::Blue => todo!(),
+   |
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0004`.
+
+
+---------- hs_type_mismatch.log ----------
+[Comment] Haskell: type mismatch - [Char] instead of Int. Expect compile error.
+
+TypeMismatch.hs:5:19: error: [GHC-83865]
+    * Couldn't match type `[Char]' with `Int'
+      Expected: Int
+        Actual: String
+    * In the first argument of `add', namely `"42"'
+      In the first argument of `print', namely `(add "42" 1)'
+      In the expression: print (add "42" 1)
+  |
+5 | main = print (add "42" 1)
+  |                   ^^^^
+
+
+---------- hs_maybe_mismatch.log ----------
+[Comment] Haskell: Maybe passed to function expecting Int. Expect compile error.
+
+MaybeMismatch.hs:5:19: error: [GHC-83865]
+    * Couldn't match expected type `Int' with actual type `Maybe a0'
+    * In the first argument of `inc', namely `Nothing'
+      In the first argument of `print', namely `(inc Nothing)'
+      In the expression: print (inc Nothing)
+  |
+5 | main = print (inc Nothing)
+  |                   ^^^^^^^
+
+
+---------- hs_non_exhaustive.log ----------
+[Comment] Haskell: incomplete pattern - no Blue. Expect -Wincomplete-patterns.
+
+NonExhaustive.hs:4:1: error: [GHC-62161] [-Wincomplete-patterns, Werror=incomplete-patterns]
+    Pattern match(es) are non-exhaustive
+    In an equation for `toCode':
+        Patterns of type `Color' not matched: Blue
+  |
+4 | toCode Red = 1
+  | ^^^^^^^^^^^^^^^...
+
+
+---------- py_type_mismatch.log ----------
+[Comment] Python: str passed to function expecting int. Expect runtime TypeError.
+Traceback (most recent call last):
+  File "<project>", line 5, in <module>
+    print(add("42", 1))
+          ^^^^^^^^^^^^
+  File "<project>", line 2, in add
+    return a + b
+           ~~^~~
+TypeError: can only concatenate str (not "int") to str
+
+
+---------- py_none_mismatch.log ----------
+[Comment] Python: None passed to inc. Expect runtime TypeError.
+Traceback (most recent call last):
+  File "<project>", line 6, in <module>
+    print(inc(value))
+          ^^^^^^^^^^
+  File "<project>", line 2, in inc
+    return x + 1
+           ~~^~~
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+
+
+---------- py_non_exhaustive.log ----------
+[Comment] Python: to_code returns None for BLUE - None+1. Expect runtime TypeError.
+Traceback (most recent call last):
+  File "<project>", line 17, in <module>
+    print(to_code(Color.BLUE) + 1)
+          ~~~~~~~~~~~~~~~~~~~~^~~
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+
+
+---------- mypy_type_mismatch.out ----------
+[Comment] mypy: static check type_mismatch.py. Expect argument type error.
+python\type_mismatch.py:5: error: Argument 1 to "add" has incompatible type "str"; expected "int"  [arg-type]
+Found 1 error in 1 file (checked 1 source file)
+
+
+---------- mypy_none_mismatch.out ----------
+[Comment] mypy: static check none_mismatch.py. Expect None type error.
+python\none_mismatch.py:6: error: Argument 1 to "inc" has incompatible type "None"; expected "int"  [arg-type]
+Found 1 error in 1 file (checked 1 source file)
+
+
+---------- mypy_non_exhaustive.out ----------
+[Comment] mypy: static check non_exhaustive.py. Expect missing return or None.
+python\non_exhaustive.py:10: error: Missing return statement  [return]
+Found 1 error in 1 file (checked 1 source file)
+

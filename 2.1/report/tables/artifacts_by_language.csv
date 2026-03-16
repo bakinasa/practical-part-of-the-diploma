@@ -1,0 +1,5 @@
+Language,Intermediate form,Low-level form,Final artifact
+C,GCC tree dump (optimized),asm (.s),exe
+Rust,LLVM IR,asm,exe
+Haskell,Core (dump-simpl),asm,exe
+Python,bytecode dis (relax/step),bytecode (VM),pyc
