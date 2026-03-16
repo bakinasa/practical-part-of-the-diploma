@@ -21,5 +21,3 @@ Practical materials for the diploma. Each section has its own `README.md`, a run
 - **2.4 — Concurrency and parallelism**  
   Three experiments: A) shared counter (races vs mutex/atomic, compile-time rejection in Rust, IORef/MVar in Haskell, multiprocessing in Python); B) parallel reduction (CPU-bound scaling and speedup/efficiency); C) async timer swarm (seq vs threads vs async).  
   Run from `2.4/`: `.\run_2_4.ps1` (JSON metrics in `2.4/out/`, summary in `2.4/report/report.txt`).
-
-User-specific paths and machine names are redacted in generated reports (`<project>`), and heavy/low-level artifacts in `*/out/` are ignored via `.gitignore` to keep the repository clean and free of confidential information.
