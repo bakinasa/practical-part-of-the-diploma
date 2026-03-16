@@ -26,6 +26,17 @@ def load_json(path: Path) -> dict | None:
         return None
 
 
+def redact(s: str, root: Path) -> str:
+    base = str(root)
+    # Replace exact root path variants
+    for b in {base, base.lower(), base.upper()}:
+        s = s.replace(b, "<project>")
+        s = s.replace(b.replace("\\", "/"), "<project>")
+    # Fallback: strip any explicit C:\Users\bakin... style paths
+    s = re.sub(r"[A-Za-z]:\\\\Users\\\\bakin[^\s\"]*", "<project>", s)
+    return s
+
+
 def main() -> int:
     script_dir = Path(__file__).resolve().parent
     root = script_dir.parent
@@ -231,8 +242,10 @@ def main() -> int:
         w(f"  {mode}  tasks={tasks}  delay_ms={delay}  checksum={checksum}  avg_time_ms={avg_time:.2f}  peak_rss_mb={rss_s}")
     w()
 
+    report_text = "\n".join(lines)
+    report_text = redact(report_text, root)
     with open(report_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(lines))
+        f.write(report_text)
     print(f"Report written: {report_path}")
     return 0
 

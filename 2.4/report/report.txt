@@ -5,7 +5,7 @@ Section 2.4 — Concurrency and parallelism: report
 Rust rejected example (must not compile: Rc<RefCell<_>> not Send)
 ----------------------------------------------------------------------
 rustc.exe : error[E0277]: `Rc<RefCell<u64>>` cannot be sent between threads safely
-C:\Users\bakin\OneDrive\Рабочий стол\2.3\2.4\run_2_4.ps1:32 знак:1
+<project>\run_2_4.ps1:32 знак:1
 + & rustc (Join-Path $root "rust\rust_rejected.rs") -o (Join-Path $out  ...
 + ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     + CategoryInfo          : NotSpecified: (error[E0277]: `... threads safely:String) [], RemoteException
