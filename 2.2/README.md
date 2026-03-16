@@ -13,7 +13,29 @@
 - `python/` — dijkstra_22.py, relax_loop_22.py
 - `out/` — executables and JSON logs (dijkstra_*_run1..3.json, relax_loop_*_run1..3.json)
 
-**Build (from repo root or 2.2):**
+**Outputs:** `out/` (executables, JSON logs), `report/report.txt`. Run `.\run_2_2.ps1` to build all, run each variant 3 times, and generate the report.
+
+---
+
+## Описание эксперимента
+
+Практическая часть подраздела строится в два слоя. Основным кейсом сохранён алгоритм Дейкстры из раздела 1.5, что позволяет удержать преемственность между формальным и технологическим анализом. Дополнительно используется микробенчмарк **relax_loop**, изолирующий повторение элементарной численной операции (та же операция релаксации `step(old, du, w)`) и позволяющий выделить собственные накладные расходы модели исполнения вне файлового ввода, построения графа и сложных структур данных. Обе программы (Дейкстра и relax_loop) запускаются на C, Rust, Haskell и Python под единым монитором **run_monitor.py**, который измеряет время выполнения, пик потребления памяти (peak RSS) и, когда возможно, языко-специфические метрики рантайма (статистика RTS Haskell, данные tracemalloc Python и т.п.); по нескольким прогонам для каждого варианта строится отчёт, где сравнивается, как один и тот же алгоритм и одна и та же численная операция «живут» во времени и памяти в разных языках и архитектурных стек-/heap-моделях.
+
+### run_monitor.py
+
+Скрипт запускает произвольную команду, в цикле (каждые 10 мс) опрашивает потребление памяти процесса и дочерних (через psutil), по завершении выдаёт один JSON: `wall_ms`, `peak_rss_mb`, `stdout`, `stderr`, `exit_code`. Так каждый запуск даёт сравнимый набор метрик независимо от языка.
+
+### Отчёт
+
+`common/build_report.py` читает все `out/*.json`, извлекает метрики и языко-специфическую статистику (C, Rust, Haskell RTS, Python tracemalloc), формирует сводные таблицы по времени и памяти для Дейкстры и для relax_loop, детальные блоки по прогонам и список отсутствующих метрик или ошибок.
+
+---
+
+## Сборка и запуск
+
+**Зависимости:** `python -m pip install psutil` (для run_monitor.py).
+
+**Сборка (из корня репозитория или из папки 2.2):**
 ```text
 gcc -O2 2.2/c/dijkstra_22.c -o 2.2/out/dijkstra_c_22.exe
 gcc -O2 2.2/c/relax_loop_22.c -o 2.2/out/relax_loop_c_22.exe
@@ -23,16 +45,15 @@ ghc -O2 -rtsopts 2.2/haskell/Dijkstra22.hs -o 2.2/out/dijkstra_hs_22.exe
 ghc -O2 -rtsopts 2.2/haskell/RelaxLoop22.hs -o 2.2/out/relax_loop_hs_22.exe
 ```
 
-**Run (use same graph as 1.5):** Copy or generate `graph.txt` in 2.2, then:
+**Граф:** используется тот же `graph.txt`, что и в 1.5 (скопировать из `../1.5/` или сгенерировать скриптом 1.5). Положить в `2.2/graph.txt`.
+
+**Запуск через монитор (примеры):**
 ```text
 python 2.2/common/run_monitor.py 2.2/out/dijkstra_c_22.exe graph.txt
+python 2.2/common/run_monitor.py 2.2/out/dijkstra_rust_22.exe graph.txt
 python 2.2/common/run_monitor.py 2.2/out/dijkstra_hs_22.exe graph.txt +RTS -s
 python 2.2/common/run_monitor.py python 2.2/python/dijkstra_22.py graph.txt
 ```
-(Similarly for Rust and for relax_loop without graph.txt.)
+Для relax_loop те же команды, но без аргумента `graph.txt`.
 
-**Automation:** From folder 2.2 run `.\run_2_2.ps1` — builds all, runs each variant 3 times, saves JSON to `out/`, then builds the report.
-
-**Report:** `python common/build_report.py` (or run after `run_2_2.ps1`) reads all `out/*.json`, extracts metrics and language-specific stats (C alloc/free, Rust alloc/dealloc/realloc, Python tracemalloc, Haskell RTS), and writes `report/report.txt` with summary tables, detailed per-run output, errors (if any), and missing-metrics list. Supports UTF-8 BOM in JSON (e.g. from PowerShell Out-File).
-
-**Dependencies:** `python -m pip install psutil` for run_monitor.py.
+**Автоматизация:** из папки 2.2 выполнить `.\run_2_2.ps1` — собирает все бинарники, запускает каждый вариант по 3 раза, сохраняет JSON в `out/`, затем строит отчёт. Отчёт также можно пересобрать вручную: `python common/build_report.py` (поддерживается UTF-8 BOM в JSON, например от PowerShell Out-File).

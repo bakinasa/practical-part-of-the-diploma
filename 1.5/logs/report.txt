@@ -5,19 +5,7 @@
 
 | Language | Time (ms) | Memory (MB) |
 |----------|-----------|-------------|
-| C | 41.13 | 0 |
-| Rust | 35.66 | 3.85 |
-| Haskell | 0 | 4.73 |
-| Python | 572.2 | 3.9 |
-
-Reference (10k vertices, 50k edges, other hardware):
-  C:        40-45 ms,  8-9 MB
-  Rust:     42-48 ms,  9-10 MB
-  Haskell:  70-85 ms,  20-24 MB
-  Python:   190-220 ms, 30-36 MB
-
-Each implementation outputs a checksum (sum of finite distances) over all runs;
-checksums should match across C, Rust, Haskell, Python for the same graph.
-
-Implementations use typical idioms per language (heap, arrays, etc.);
-metrics reflect those choices rather than the language alone.
+| C | 42.05 | 0 |
+| Rust | 35.82 | 3.46 |
+| Haskell | 21.91 | 3.79 |
+| Python | 540.17 | 3.18 |

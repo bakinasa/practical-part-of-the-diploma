@@ -55,7 +55,11 @@ Write-Host "  Python (interpreted)"
 Write-Host ""
 
 function Get-PeakMemoryMB {
-    param([string]$ExePath, [string]$ArgString)
+    param(
+        [string]$ExePath,
+        [string]$ArgString,
+        [int]$SampleMs = 30  # интервал опроса, по умолчанию как раньше
+    )
     $psi = New-Object System.Diagnostics.ProcessStartInfo
     $psi.FileName = $ExePath
     $psi.Arguments = $ArgString
@@ -70,8 +74,15 @@ function Get-PeakMemoryMB {
             $ws = [math]::Round($p.WorkingSet64 / 1MB, 2)
             if ($ws -gt $peak) { $peak = $ws }
         } catch {}
-        Start-Sleep -Milliseconds 30
+        Start-Sleep -Milliseconds $SampleMs
     }
+    # Процесс уже завершился; делаем ещё один замер WorkingSet,
+    # чтобы очень короткие программы не давали искусственный ноль.
+    try {
+        $p.Refresh()
+        $ws = [math]::Round($p.WorkingSet64 / 1MB, 2)
+        if ($ws -gt $peak) { $peak = $ws }
+    } catch {}
     $p.WaitForExit()
     return $peak
 }
@@ -92,7 +103,8 @@ if ($cBuilt) {
     $cExePath = Join-Path $PSScriptRoot "c\dijkstra.exe"
     $t = Run-AndParseTime $cExePath @($graphPath)
     if ($null -ne $t) { $results["C"] = $t; Write-Host "C avg_time_ms: $t" }
-    $mem = Get-PeakMemoryMB $cExePath $graphPath
+    # Для C уменьшаем интервал опроса, чтобы поймать пик даже при очень быстром выполнении.
+    $mem = Get-PeakMemoryMB $cExePath $graphPath 5
     $memResults["C"] = $mem
     Write-Host "C peak_memory_mb: $mem"
 } else { $results["C"] = $null; $memResults["C"] = $null }
@@ -140,18 +152,6 @@ foreach ($lang in @("C", "Rust", "Haskell", "Python")) {
     $memStr = if ($memResults[$lang] -ne $null) { [string]$memResults[$lang] } else { "N/A" }
     [void]$sb.AppendLine("| $lang | $timeStr | $memStr |")
 }
-[void]$sb.AppendLine("")
-[void]$sb.AppendLine("Reference (10k vertices, 50k edges, other hardware):")
-[void]$sb.AppendLine("  C:        40-45 ms,  8-9 MB")
-[void]$sb.AppendLine("  Rust:     42-48 ms,  9-10 MB")
-[void]$sb.AppendLine("  Haskell:  70-85 ms,  20-24 MB")
-[void]$sb.AppendLine("  Python:   190-220 ms, 30-36 MB")
-[void]$sb.AppendLine("")
-[void]$sb.AppendLine("Each implementation outputs a checksum (sum of finite distances) over all runs;")
-[void]$sb.AppendLine("checksums should match across C, Rust, Haskell, Python for the same graph.")
-[void]$sb.AppendLine("")
-[void]$sb.AppendLine("Implementations use typical idioms per language (heap, arrays, etc.);")
-[void]$sb.AppendLine("metrics reflect those choices rather than the language alone.")
 
 $reportPath = Join-Path $PSScriptRoot $REPORT
 $utf8 = New-Object System.Text.UTF8Encoding $false
